@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Mohave:ital,wght@0,300..700;1,300..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: #121826;
+    color: #121826;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  form {
+    background-color: #f8f8f8;
+    padding: 15px 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(26, 185, 145, 0.3);
+    max-width: 500px;
+    width: 100%;
+    
+  }
+  
+  .titulo {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .titulo h2 {
+    color: #9dcf47;
+    font-size: 30px;
+    
+  }
+  
+  label {
+    display: block;
+    margin-top: 10px;
+    color: #121826;
+    font-weight: 500;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"]{
+    width: calc(100% - 0px);
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #7e7e7e;
+    border-radius: 4px;
+    background-color: #1a2236;
+    color: #fff;
+    font-size: 15px;
+    box-sizing: border-box;
+  }
+  
+  input[type="checkbox"] {
+    width: auto;
+    margin-top: 0;
+  }
+  
+  .asociado-check {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .asociado-check label {
+    margin-right: 10px;
+    margin-bottom: 0;
+  }
+  
+  input[type="submit"] {
+    width: 100%;
+    background-color: #B1E457;
+    color: black;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #5c7c23
+  }
+  
+  input[type="submit"]:disabled {
+    background-color: #444;
+    cursor: not-allowed;
+  }
+  
+  .alertas {
+    margin-top: 10px;
+  }
+  
+  .ingresar-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+  }
+  
+  .ingresar-link a {
+    color: #679617;
+    text-decoration: none;
+  }
+  
+  .ingresar-link a:hover {
+    text-decoration: underline;
+  }
+  
