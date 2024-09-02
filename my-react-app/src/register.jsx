@@ -2,7 +2,7 @@ import "./register.css";
 import { useEffect, useState } from "react";
 import { Alert } from "@mui/material";
 
-function App(params) {
+function Register(params) {
   //aplicacion de use state
   const [formData, setFormData] = useState({
     nombre: "",
@@ -34,7 +34,7 @@ function App(params) {
     if (passwordError) {
       const timer = setTimeout(() => {
         setPasswordError("");
-      }, 5000); // 5 segundos
+      }, 3000); // 5 segundos
 
       return () => clearTimeout(timer); // Limpiar el temporizador si el componente se desmonta o el error cambia
     }
@@ -176,7 +176,7 @@ function App(params) {
           onChange={onChange}
         />
 
-        <label htmlFor="confirmPassword">Confirmar Password: </label>
+        <label htmlFor="confirmPassword">Confirmar Contraseña: </label>
         <input
           type="password"
           id="confirmPassword"
@@ -206,4 +206,4 @@ function App(params) {
   );
 }
 
-export default App;
+export default Register;

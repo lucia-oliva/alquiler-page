@@ -1,6 +1,8 @@
 const { request } = require("express");
 const Pool = require("pg").Pool;
 const { config } = require('dotenv');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 config();
 const database = process.env.DATABASE;
@@ -31,7 +33,6 @@ const getUsers = (request, response) => {
 //funcion registrar usuario
 
 const createUser = (req, res) => {
- 
   console.log(req.body);
   const {nombre, apellido, telefono, email, password, asociado } =
     req.body;
@@ -67,5 +68,24 @@ const createUser = (req, res) => {
   };  
 
 
+  //Auntenticacion de usuario y generacion de token JWT
+  const loginUser = async (req, res) => {
+    const {email, password} = req.body;
+    try {
+      const result = await pool.query('SELECT * FROM public."tbUser" WHERE email = $1', [email]);
+      const user = result.rows[0];
+  
+      if (user && password === user.password){
+        const token = jwt.sign({ id: user.id }, 'your_jwt_secret', { expiresIn: '1h' });
+        res.json({ token });
+      } else {
+        res.status(401).json({ message: 'Invalid credentials' });
+      }
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+    
+  };
 
-module.exports = { getUsers, createUser };
+
+module.exports = { getUsers, createUser, loginUser};
