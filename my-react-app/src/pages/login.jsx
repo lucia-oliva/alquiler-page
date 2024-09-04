@@ -1,6 +1,6 @@
 // src/pages/Login.jsx
 import { useState } from "react";
-import { useAuth } from "./useAuth";
+import { useAuth } from "../utils/useAuth";
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");

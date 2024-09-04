@@ -1,5 +1,5 @@
 // src/pages/Secret.jsx
-import { useAuth } from "./useAuth";
+import { useAuth } from "../utils/useAuth";
 
 export const Secret = () => {
   const { logout } = useAuth();

@@ -1,9 +1,9 @@
 import {Routes, Route} from "react-router-dom";
-import Register from "./register";
-import {AuthProvider} from "./useAuth";
-import { LoginPage } from "./login";
-import { Secret } from "./secret";
-import { ProtectedRoute } from "./ProtectedRoute";
+import Register from "./pages/register";
+import {AuthProvider} from "./utils/useAuth";
+import { LoginPage } from "./pages/login";
+import { Secret } from "./pages/secret";
+import { ProtectedRoute } from "./utils/ProtectedRoute";
 
 
 function App(){
