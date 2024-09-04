@@ -20,6 +20,7 @@ export const LoginPage = () => {
       });
 
       const data = await response.json();
+      console.log(data);
       if (response.ok) {
         login({ email, token: data.token });
       } else {
@@ -32,7 +33,7 @@ export const LoginPage = () => {
 
   return (
     <form onSubmit={handleLogin}>
-      <label>Username:</label>
+      <label>Email:</label>
       <input
         type="text"
         value={email}
@@ -47,5 +48,6 @@ export const LoginPage = () => {
       <button type="submit">Login</button>
     </form>
   );
+
 };
 

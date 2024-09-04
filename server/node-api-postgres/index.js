@@ -20,9 +20,10 @@ app.get('/', (request, response) => {
     response.json({ info: 'Node.js, Express, and Postgres API' })
   })
 
-  app.get('/users', db.getUsers)
-  app.post('/users', db.createUser)
+  app.get('/users', db.getUsers);
+  app.post('/users', db.createUser);
   app.post('/loginUser', db.loginUser);
+  app.post('/getHorarios', db.getHorarios);
 
   app.listen(port, () => {
     console.log(`App running on port ${port}.`)
