@@ -46,6 +46,7 @@ const getHorarios = (req, res) => {
         return res.status(500).json({ error: 'Error en la consulta' });
       }
       res.status(200).json(results.rows);
+      console.log(results.rows);
     }
   );
 };
