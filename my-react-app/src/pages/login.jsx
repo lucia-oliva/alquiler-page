@@ -1,6 +1,7 @@
 // src/pages/Login.jsx
 import { useState } from "react";
 import { useAuth } from "../utils/useAuth";
+import "./login.css";
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -14,8 +15,9 @@ export const LoginPage = () => {
       const response = await fetch("http://localhost:4000/loginUser", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-            email, password 
+        body: JSON.stringify({
+          email,
+          password,
         }),
       });
 
@@ -32,22 +34,30 @@ export const LoginPage = () => {
   };
 
   return (
-    <form onSubmit={handleLogin}>
-      <label>Email:</label>
-      <input
-        type="text"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <label>Password:</label>
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit">Login</button>
-    </form>
+    <div className="login-page">
+      <div className="login-container">
+        <form className="login-form" onSubmit={handleLogin}>
+          <label>Email:</label>
+          <input
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit">Login</button>
+        </form>
+      </div>
+      <div className="register-container">
+        <p className="register-text">No tienes una cuenta?</p>
+        <a className="register-link" href="/register">
+          Registrate aqui
+        </a>
+      </div>
+    </div>
   );
-
 };
-
