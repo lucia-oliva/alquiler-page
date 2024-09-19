@@ -40,18 +40,32 @@ hora_inicio(fecha); //pasamos como argumento la fecha de hoy para traer horarios
 //Funcion para verificar la disponibiliad de un horario
 const verificarDisponibilidad = (hora) => {
     for (let horario of horariosBD) {
-      if (hora >= horario.hora_inicio && hora < horario.hora_fin) {
+      const horaInicio = horario.hora_inicio.slice(0,5); //convierte 08:00:00 en -> 08:00 
+      if (hora === horaInicio) {
         return horario.disponible ? 'green' : 'red';
       }
     }
     return 'white'; // Si no hay información, color de fondo por defecto
   };
 
+  //determinar fecha
+
+  const handleChangeFecha = (event) => {
+    setFecha(event.target.value);
+  }
 
   return(
     
     <div>
-    <h2>Horarios para {fecha}</h2>
+    <h2 style={{color: 'white'}}>Horarios para {fecha}</h2> 
+      
+    <input
+      type="date"
+      value={fecha}
+      onChange={handleChangeFecha}
+      style={{marginBottom: '20px', paddingBottom: '10px'}}
+      />
+
     <ul>
       {horariosFijos.map((hora, index) => (
         <li 
@@ -59,8 +73,9 @@ const verificarDisponibilidad = (hora) => {
           style={{ 
             backgroundColor: verificarDisponibilidad(hora), 
             color: 'black', 
+            listStyle: 'none',
             padding: '10px', 
-            margin: '5px 0' 
+            margin: '5px 0', 
           }}
         >
           {hora}

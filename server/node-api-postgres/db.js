@@ -30,7 +30,6 @@ const getUsers = (request, response) => {
 };
 
 //funcion para traer horarios
-
 const getHorarios = (req, res) => {
   const { fecha } = req.body;
 
