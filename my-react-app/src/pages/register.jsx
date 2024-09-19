@@ -40,17 +40,14 @@ function Register(params) {
     }
   }, [passwordError]);
 
-
-
   //funcion que detecta cambios en los campos
   const onChange = (e) => {
-    setFormData((prev)=> {
-      let helper = {...prev}
-      helper[`${e.target.name}`] =
-      e.target.value;
+    setFormData((prev) => {
+      let helper = { ...prev };
+      helper[`${e.target.name}`] = e.target.value;
 
       return helper;
-    })
+    });
   };
 
   //funcion de envio de los datos
@@ -90,7 +87,6 @@ function Register(params) {
           asociado,
         }),
       });
-      
 
       const data = await response.json();
       if (response.ok) {
@@ -109,10 +105,22 @@ function Register(params) {
   };
 
   return (
-    <>
+    <div className="register">
       <form onSubmit={envio}>
         <div className="titulo">
           <h2>Cree una nueva cuenta</h2>
+        </div>
+        <div className="alertas">
+          {message && (
+            <Alert variant="filled" severity={messageType}>
+              {message}
+            </Alert>
+          )}
+          {passwordError && (
+            <Alert variant="filled" severity="error">
+              {passwordError}
+            </Alert>
+          )}
         </div>
 
         <label htmlFor="nombre">Nombre:</label>
@@ -163,6 +171,7 @@ function Register(params) {
             name="asociado"
             checked={formData.asociado}
             onChange={onChange}
+            value={formData.asociado}
           />
         </div>
 
@@ -185,10 +194,6 @@ function Register(params) {
           value={formData.confirmPassword}
           onChange={onChange}
         />
-        <div className="alertas">
-        {message && <Alert variant="filled"severity={messageType}>{message}</Alert>}
-        {passwordError && <Alert variant="filled"severity="error">{passwordError}</Alert>}
-        </div>
 
         <input
           type="submit"
@@ -196,13 +201,13 @@ function Register(params) {
           value={loading ? "Registrando..." : "Registrarse"}
           disabled={loading}
         />
-        <div className="ingresar-link">
-          <p>
-            ¿Ya tienes una cuenta? <a href="#">Ingresa aqui.</a>
-          </p>
-        </div>
       </form>
-    </>
+      <div className="ingresar-link">
+        <p>
+          ¿Ya tienes una cuenta? <a href="/login">Ingresa aqui.</a>
+        </p>
+      </div>
+    </div>
   );
 }
 
