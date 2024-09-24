@@ -4,6 +4,7 @@ import {AuthProvider} from "./utils/useAuth";
 import { LoginPage } from "./pages/login";
 import { Secret } from "./pages/secret";
 import { ProtectedRoute } from "./utils/ProtectedRoute";
+import HomePage from "./pages/home";
 
 
 function App(){
@@ -12,7 +13,7 @@ function App(){
         <Routes>
             <Route path="/register" element={<Register/>}/>
             <Route path="/login" element={<LoginPage/>}/>
-
+            <Route index path="/" element={<HomePage/>}/>
             <Route path="/secret" element={<ProtectedRoute> <Secret/> </ProtectedRoute>}/>
 
         </Routes>
