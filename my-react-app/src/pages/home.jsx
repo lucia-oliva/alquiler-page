@@ -1,31 +1,36 @@
+import "./home.css";
 function HomePage() {
   return (
-    <>
-      <header>
-        <div>
-          <img src="logo-base1.jpg" alt="Logotipo Pagina CPCE" />
+    <div className="Home-page">
+      <header className="Hero-section">
+        <div className="Hero-nav">
+          <img id="logo" src="logo-base1.jpg" alt="Logotipo Pagina CPCE" />
           <nav>
-            <li>
-              <a href="#">Inicio</a>
-            </li>
-            <li>
-              <a href="#">Otro Link</a>
-            </li>
-            <li>
-              <a href="#">Otro Link</a>
-            </li>
-            <li>
-              <a href="#">Reservar</a>
-            </li>
+            <ul id="menu">
+              <li>
+                <a href="#">Inicio</a>
+              </li>
+              <li>
+                <a href="#">Otro Link</a>
+              </li>
+              <li>
+                <a href="#">Otro Link</a>
+              </li>
+              <li>
+                <a href="#">Reservar</a>
+              </li>
+            </ul>
           </nav>
         </div>
-        <div>
-          <div>
-            <h1>Reserva tu cancha al instante</h1>
-            <button>Reservar</button>
+        <div className="Hero-container">
+          <div className="Hero-text">
+            <h1>
+              Reserva tu cancha <br /> al instante
+            </h1>
+            <a href="#">Reservar</a>
           </div>
-          <div>
-            <img src="canchaPadel.png" alt="Imagen Padel" />
+          <div className="Hero-image">
+            <img src="" alt="" />
           </div>
         </div>
       </header>
@@ -83,7 +88,7 @@ function HomePage() {
           <p>Castro Barros 1102, F5300 La Rioja</p>
         </div>
       </footer>
-    </>
+    </div>
   );
 }
 

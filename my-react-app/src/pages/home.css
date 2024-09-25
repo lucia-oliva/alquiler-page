@@ -1,0 +1,86 @@
+.Home-page {
+  height: 100vh;
+  background-color: #ffffff;
+  color: black;
+}
+
+.Hero-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.Hero-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+}
+
+#logo {
+  width: 3em;
+}
+
+#menu {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+.Hero-container {
+  gap: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: 100vh;
+  width: 100%;
+  margin: 1em;
+  border-radius: 15px;
+  color: white;
+}
+
+.Hero-text {
+  grid-area: 1 / 1 / 2 / 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 10px;
+  background-color: blueviolet;
+  clip-path: polygon(0 0, 100% 0, 70% 100%, 0% 100%);
+  border-radius: 20px;
+  z-index: 10;
+  padding: 2em;
+}
+
+.Hero-text h1 {
+  font-size: 3em;
+}
+
+.Hero-text a {
+  background-color: #b1e457;
+  color: black;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 20px;
+  margin-top: 20px;
+  text-decoration: none;
+}
+
+.Hero-text a:hover {
+  color: black;
+}
+
+.Hero-image {
+  grid-area: 1 /2 / 2 / 4;
+  grid-row-start: 0;
+  grid-row-end: 2;
+  background-image: url("../../public/canchaPadel.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 20px;
+}
