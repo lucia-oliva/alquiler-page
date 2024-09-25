@@ -43,17 +43,17 @@ export const LoginPage = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <label>Password:</label>
+          <label>Contraseña:</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="submit">Login</button>
+          <button className="boton-login" type="submit">Login</button>
         </form>
       </div>
       <div className="register-container">
-        <p className="register-text">No tienes una cuenta?</p>
+        <p className="register-text">¿No tienes una cuenta?</p>
         <a className="register-link" href="/register">
           Registrate aqui
         </a>

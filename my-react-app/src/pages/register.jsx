@@ -204,7 +204,7 @@ function Register(params) {
       </form>
       <div className="ingresar-link">
         <p>
-          ¿Ya tienes una cuenta? <a href="/login">Ingresa aqui.</a>
+          ¿Ya tienes una cuenta? <br /><a href="/login">Ingresa aqui.</a>
         </p>
       </div>
     </div>

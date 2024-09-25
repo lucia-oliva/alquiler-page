@@ -16,9 +16,9 @@
 form {
   display: flex;
   flex-direction: column;
-  font-size: 15px;
+  font-size: 1em;
   background-color: #f8f8f8;
-  padding: 15px 40px;
+  padding: 2em 2em;
   border-radius: 10px;
   box-shadow: 0 5px 10px rgba(26, 185, 145, 0.3);
   margin: 1em 0;
@@ -33,9 +33,9 @@ form {
 
 label {
   display: block;
-  margin-top: 10px;
+  margin-top: 1em;
   color: #121826;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 input[type="text"],
@@ -47,10 +47,11 @@ input[type="password"] {
   border-radius: 4px;
   background-color: #1a2236;
   color: #fff;
+  font-size: 16px
 }
 
 input[type="checkbox"] {
-  width: 20px;
+  width: 29px;
   height: 20px;
   accent-color: #679617;
   cursor: pointer;
@@ -74,7 +75,8 @@ input[type="submit"] {
   border-radius: 4px;
   cursor: pointer;
   font-size: 20px;
-  margin-top: 20px;
+  font-weight: bold;
+  margin-top: 2em;
   transition: background-color 0.3s ease;
 }
 
@@ -95,13 +97,17 @@ input[type="submit"]:disabled {
   text-align: center;
   margin-top: 20px;
   font-size: 20px;
+  color: white;
+  margin-left: 4em;
 }
 
 .ingresar-link a {
   color: #679617;
   text-decoration: none;
+  font-size: 2em;
 }
 
 .ingresar-link a:hover {
   text-decoration: underline;
+  color: white;
 }
