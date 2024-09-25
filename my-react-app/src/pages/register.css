@@ -6,10 +6,10 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 2em;
-  margin: 0 2em;
+  gap: 3em;
   font-size: 20px;
   height: 100vh;
+  background-color: #121826;
 }
 
 form {

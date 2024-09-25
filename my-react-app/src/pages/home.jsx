@@ -36,8 +36,8 @@ function HomePage() {
       </header>
 
       <article>
-        <div>
-          <h2>Encuentra tu ritmo, mejora tu juego.</h2>
+        <div className="articleInfo">
+          <h2>Encuentra tu ritmo, <br />mejora tu juego.</h2>
           <p>
             Bienvenidos, ofrecemos una cancha de alta calidad disponibles para
             jugadores de todos los niveles. Ya sea para un partido amistoso o
