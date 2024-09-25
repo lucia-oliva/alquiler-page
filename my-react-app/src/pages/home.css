@@ -105,3 +105,56 @@
 .articleInfo p{
   width: 30%;
 }
+
+.Info{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: #d3fe3d;
+  padding: 2em;
+  gap: 20em;
+}
+
+
+.precioInfo h1{
+  font-size: 2.5em;
+  color: #6953da;
+}
+
+.reservaInformacion p{
+  color:#6953da;
+  font-weight: bold;
+  padding-left: 1.5em;
+  padding-bottom: 1em;
+}
+.reservaInformacion ol{
+  padding-bottom: 1em;
+}
+.reservaInformacion li{
+  color: rgb(102, 101, 101);
+}
+
+.reservaInformacion button{
+  color: #d3fe3d;
+  background-color: #6953da;
+  width: 8em;
+  margin-left: 4em;
+}
+
+.reservaInformacion button:hover{
+  background-color: #4633a3;
+}
+
+.footerHome{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 2em;
+  gap: 20em;
+}
+
+.footerHome .footer_p{
+  font-weight: bold;
+}

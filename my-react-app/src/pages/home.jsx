@@ -66,29 +66,29 @@ function HomePage() {
         </div>
       </article>
 
-      <article>
-        <div>
-          <h1>Reservar a solo $2000 por hora</h1>
+      <article className="Info">
+        <div className="precioInfo">
+          <h1>Reservar a solo <br /> $2000 por hora</h1>
         </div>
-        <div>
+        <div className="reservaInformacion">
           <p>Reserva tu turno facilmente</p>
           <ol>
             <li>Completa el formulario con tus datos.</li>
             <li>Selecciona la fecha y hora deseada.</li>
-            <li>Carga el comprobante de pago para confirmar tu turno.</li>
+            <li>Carga el comprobante de pago para <br /> confirmar tu turno.</li>
           </ol>
           <button>Reservar</button>
         </div>
       </article>
 
-      <footer>
+      <footer className="footerHome">
         <div>
-          <p>Contacto</p>
+          <p className="footer_p">Contacto</p>
           <p>380-4533470 | 380-4797455</p>
         </div>
 
         <div>
-          <p>Direccion</p>
+          <p  className="footer_p">Direccion</p>
           <p>Castro Barros 1102, F5300 La Rioja</p>
         </div>
       </footer>
