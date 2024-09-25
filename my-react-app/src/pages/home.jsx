@@ -1,4 +1,6 @@
 import "./home.css";
+import { GiTennisCourt } from "react-icons/gi";
+
 function HomePage() {
   return (
     <div className="Home-page">
@@ -41,7 +43,10 @@ function HomePage() {
 
       <article>
         <div className="articleInfo">
-          <h2>Encuentra tu ritmo, <br />mejora tu juego.</h2>
+          <h2>
+            Encuentra tu ritmo, <br />
+            mejora tu juego.
+          </h2>
           <p>
             Bienvenidos, ofrecemos una cancha de alta calidad disponibles para
             jugadores de todos los niveles. Ya sea para un partido amistoso o
@@ -50,17 +55,17 @@ function HomePage() {
           </p>
         </div>
 
-        <div>
-          <div>
-            <img src="" alt="" />
+        <div id="cards-container">
+          <div className="card" id="tennis">
+            <div className="card-image">
+              <GiTennisCourt className="card-icon" />
+            </div>
             <p>Superficies de juego profesionales</p>
           </div>
-          <div>
-            <img src="" alt="" />
+          <div className="card" id="lamp">
             <p> Iluminacion optima para partidos nocturnos.</p>
           </div>
-          <div>
-            <img src="" alt="" />
+          <div className="card" id="locker">
             <p>Vestuarios comodos y equipados.</p>
           </div>
         </div>
