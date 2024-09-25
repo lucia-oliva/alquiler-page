@@ -17,7 +17,9 @@ function HomePage() {
                 <a href="#">Otro Link</a>
               </li>
               <li>
-                <a href="#">Reservar</a>
+                <a className="button-res" href="#">
+                  Reservar
+                </a>
               </li>
             </ul>
           </nav>
@@ -27,7 +29,9 @@ function HomePage() {
             <h1>
               Reserva tu cancha <br /> al instante
             </h1>
-            <a href="#">Reservar</a>
+            <a className="button-res" href="#">
+              Reservar
+            </a>
           </div>
           <div className="Hero-image">
             <img src="" alt="" />
