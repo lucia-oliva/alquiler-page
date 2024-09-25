@@ -88,8 +88,11 @@
   border-radius: 20px;
 }
 
+.showcase-section {
+  margin-bottom: 5em;
+}
 
-.articleInfo{
+.articleInfo {
   display: flex;
   margin: 5em 5em;
   align-items: center;
@@ -97,56 +100,118 @@
   gap: 15em;
 }
 
-.articleInfo h2{
+.articleInfo h2 {
   font-size: 2em;
   font-style: italic;
 }
 
-.articleInfo p{
+.articleInfo p {
   width: 30%;
 }
 
-.Info{
+#cards-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2em;
+  margin: 2em;
+}
+
+.card {
   display: flex;
-  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3em 0;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  gap: 3em;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 20px;
+  transition: all ease-in-out 0.4s;
+}
+
+.card:hover {
+  box-shadow: 2px 10px 10px rgba(0, 0, 0, 0.3);
+  transform: scale(1.1);
+}
+
+.card p {
+  font-weight: lighter;
+}
+
+.card-image {
+  display: flex;
   justify-content: center;
+  align-items: center;
+  width: 1em;
+  height: 1em;
+  border-radius: 100%;
+  font-size: 6em;
+}
+
+#court-card:hover {
+  background-color: #5eda532f;
+}
+#court {
+  background-color: #5eda532f;
+  color: #58f129;
+}
+#light-card:hover {
+  background-color: #bafe3d2f;
+}
+#light {
+  background-color: #bafe3d2f;
+  color: #ffca1b;
+}
+
+#locker-card:hover {
+  background-color: #6953da2f;
+}
+#locker {
+  background-color: #6953da2f;
+  color: #6953da;
+}
+
+.Info {
+  display: flex;
+  justify-content: space-around;
   align-items: center;
   background-color: #d3fe3d;
   padding: 2em;
-  gap: 20em;
 }
 
-
-.precioInfo h1{
+.precioInfo h1 {
   font-size: 2.5em;
   color: #6953da;
 }
 
-.reservaInformacion p{
-  color:#6953da;
+.reservaInformacion {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  color: #6953da;
+}
+
+.reservaInformacion p {
   font-weight: bold;
-  padding-left: 1.5em;
-  padding-bottom: 1em;
 }
-.reservaInformacion ol{
-  padding-bottom: 1em;
-}
-.reservaInformacion li{
+
+.reservaInformacion li {
   color: rgb(102, 101, 101);
 }
 
-.reservaInformacion button{
+.reservaInformacion button {
   color: #d3fe3d;
   background-color: #6953da;
   width: 8em;
   margin-left: 4em;
 }
 
-.reservaInformacion button:hover{
+.reservaInformacion button:hover {
   background-color: #4633a3;
 }
 
-.footerHome{
+.footerHome {
   display: flex;
   width: 100%;
   justify-content: center;
@@ -155,6 +220,6 @@
   gap: 20em;
 }
 
-.footerHome .footer_p{
+.footerHome .footer_p {
   font-weight: bold;
 }
