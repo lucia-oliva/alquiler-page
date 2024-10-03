@@ -6,74 +6,56 @@ export const Hours = (props) => {
     cancha: PropTypes.number,
     fecha: PropTypes.string,
   };
-  //Creamos un user State, inicializamos la fecha en el dia de hoy.
   const [horariosBD, setHorariosBD] = useState([]);
   let cancha = props.cancha;
   let fecha = props.fecha;
 
-  const horariosFijos = [
-    "08:00",
-    "09:00",
-    "10:00",
-    "11:00",
-    "12:00",
-    "13:00",
-    "14:00",
-    "15:00",
-    "16:00",
-    "17:00",
-    "18:00",
-    "19:00",
-    "20:00",
-    "21:00",
-    "22:00",
-    "23:00",
-  ];
+  const horariosFijos = [];
+
+  for (let i = 8; i <= 23; i++) {
+    horariosFijos.push(i);
+  }
 
   useEffect(() => {
-    async function hora_inicio(fecha, cancha) {
+    const fetchHorarios = async () => {
       try {
         const response = await fetch("http://localhost:4000/getHorarios", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            fecha,
-            cancha,
-          }),
+          body: JSON.stringify({ fecha, cancha }),
         });
-        const data = await response.json();
-        console.log(data);
 
-        if (response.ok) {
-          setHorariosBD(data);
-          return data;
-        } else {
+        if (!response.ok) {
           throw new Error("Error en la petición");
         }
+
+        const data = await response.json();
+        setHorariosBD(data);
+        return data;
       } catch (err) {
         console.error("Error:", err);
       }
-    }
-    hora_inicio(fecha, cancha); //pasamos como argumento la fecha de hoy para traer horarios segun fecha.
+    };
+
+    fetchHorarios();
   }, [fecha, cancha]);
 
   // Función para comprobar disponibilidad de horario
   const verificarDisponibilidad = (hour) => {
-    return horariosBD.find(
-      // horarioDB es un array de horarios se puede usar .find para buscar un horario y comparar
-      (horario) => horario.hora_inicio.slice(0, 5) === hour
-    )
-      ? "red"
-      : "white";
+    if (
+      horariosBD.some(
+        (element) => parseInt(element.hora_inicio.slice(0, 2)) === hour
+      )
+    ) {
+      return "red";
+    }
   };
 
   return (
     <div>
-      <h2 style={{ color: "white" }}>
+      <h2>
         Horarios para {fecha} - Cancha {cancha}
       </h2>
-
-      {/*Input para seleccionar cancha*/}
 
       <ul>
         {horariosFijos.map((hora, index) => (
@@ -85,9 +67,13 @@ export const Hours = (props) => {
               listStyle: "none",
               padding: "10px",
               margin: "5px 0",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              console.log("Horario seleccionado: ", hora);
             }}
           >
-            {hora}
+            {`${hora}:00`}
           </li>
         ))}
       </ul>

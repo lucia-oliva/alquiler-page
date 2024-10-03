@@ -5,7 +5,7 @@ import { useState } from "react";
 export const Secret = () => {
   const { logout } = useAuth();
   const [fecha, setFecha] = useState(new Date().toISOString().split("T")[0]);
-  const [cancha, setCancha] = useState(null);
+  const [cancha, setCancha] = useState(0);
 
   //determinar fecha
   const handleChangeCncha = (event) => {
@@ -18,8 +18,11 @@ export const Secret = () => {
   return (
     <div>
       <select value={cancha} onChange={handleChangeCncha} style={{}}>
-        <option value="1">Cancha 1</option>
-        <option value="2">Cancha 2</option>
+        <option value="0" hidden>
+          Selecciona una cancha
+        </option>
+        <option value="1">Cancha de Padel</option>
+        <option value="2">Cancha de Volley</option>
       </select>
 
       <input
