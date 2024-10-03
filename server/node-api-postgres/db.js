@@ -31,14 +31,14 @@ const getUsers = (request, response) => {
 
 //funcion para traer horarios
 const getHorarios = (req, res) => {
-  const { fecha } = req.body;
+  const { fecha , cancha } = req.body;
 
   if (!fecha || !/^\d{4}-\d{2}-\d{2}$/.test(fecha)) {
     return res.status(400).json({ error: "Fecha inválida" });
   }
   pool.query(
-    'SELECT hora_inicio, hora_fin, disponible from public."tbHorarios" where fecha = $1',
-    [fecha],
+    'SELECT hora_inicio, hora_fin, disponible from public."tbHorarios" where fecha = $1 and cancha_horarios_fk = $2',
+    [fecha,cancha],
     (error, results) => {
       if (error) {
         console.error('Error en la consulta:', error);

@@ -4,6 +4,8 @@ export const Hours = () => {
 //Creamos un user State, inicializamos la fecha en el dia de hoy. 
 const [fecha, setFecha] = useState(new Date().toISOString().split('T')[0]); 
 const [horariosBD, setHorariosBD] = useState([]);
+const [cancha, setCancha] = useState(1);
+
 
 const horariosFijos = ['08:00', '09:00', '10:00', '11:00', '12:00', 
     '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00',
@@ -11,13 +13,15 @@ const horariosFijos = ['08:00', '09:00', '10:00', '11:00', '12:00',
 
 
 useEffect(() => {
-async function hora_inicio (fecha){
+async function hora_inicio (fecha, cancha){
+  console.log(fecha, cancha);
+  
     try {
         const response = await fetch("http://localhost:4000/getHorarios", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
-        fecha,  
+        fecha, cancha,
         }),
                         }
                             );
@@ -34,15 +38,15 @@ async function hora_inicio (fecha){
     console.error('Error:', err);
     }  
 }
-hora_inicio(fecha); //pasamos como argumento la fecha de hoy para traer horarios segun fecha.
-},[fecha]);
+hora_inicio(fecha, cancha); //pasamos como argumento la fecha de hoy para traer horarios segun fecha.
+},[fecha, cancha]);
 
 //Funcion para verificar la disponibiliad de un horario
 const verificarDisponibilidad = (hora) => {
     for (let horario of horariosBD) {
       const horaInicio = horario.hora_inicio.slice(0,5); //convierte 08:00:00 en -> 08:00 
       if (hora === horaInicio) {
-        return horario.disponible ? 'green' : 'red';
+        return horario.disponible ? 'white' : 'red';
       }
     }
     return 'white'; // Si no hay información, color de fondo por defecto
@@ -54,10 +58,14 @@ const verificarDisponibilidad = (hora) => {
     setFecha(event.target.value);
   }
 
+  const handleChangeCncha = (event) => {
+    setCancha(Number(event.target.value));
+  };
+
   return(
     
     <div>
-    <h2 style={{color: 'white'}}>Horarios para {fecha}</h2> 
+    <h2 style={{color: 'white'}}>Horarios para {fecha} - Cancha {cancha}</h2> 
       
     <input
       type="date"
@@ -65,6 +73,16 @@ const verificarDisponibilidad = (hora) => {
       onChange={handleChangeFecha}
       style={{marginBottom: '20px', paddingBottom: '10px'}}
       />
+
+      {/*Input para seleccionar cancha*/}
+      <select
+        value={cancha}
+        onChange={handleChangeCncha}
+        style={{}}
+        >
+          <option value="1">Cancha 1</option>
+          <option value="2">Cancha 2</option>
+        </select>
 
     <ul>
       {horariosFijos.map((hora, index) => (

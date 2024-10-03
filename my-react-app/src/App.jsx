@@ -5,6 +5,7 @@ import { LoginPage } from "./pages/login";
 import { Secret } from "./pages/secret";
 import { ProtectedRoute } from "./utils/ProtectedRoute";
 import HomePage from "./pages/home";
+import Reserva from "./pages/reservas";
 
 function App() {
   return (
@@ -22,7 +23,17 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/reserva"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <Reserva />{" "}
+            </ProtectedRoute>
+          }
+        />
       </Routes>
+      
     </AuthProvider>
   );
 }
