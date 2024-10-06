@@ -2,10 +2,10 @@ import { Routes, Route } from "react-router-dom";
 import Register from "./pages/register";
 import { AuthProvider } from "./utils/useAuth";
 import { LoginPage } from "./pages/login";
-import { Secret } from "./pages/secret";
 import { ProtectedRoute } from "./utils/ProtectedRoute";
 import HomePage from "./pages/home";
 import Reserva from "./pages/reservas";
+import { Rent } from "./pages/rent/rent";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
           element={
             <ProtectedRoute>
               {" "}
-              <Secret />{" "}
+              <Rent />{" "}
             </ProtectedRoute>
           }
         />
@@ -33,7 +33,6 @@ function App() {
           }
         />
       </Routes>
-      
     </AuthProvider>
   );
 }

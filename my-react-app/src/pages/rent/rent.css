@@ -1,0 +1,19 @@
+.Rent-page {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0;
+  height: 100vh;
+}
+
+.Form-container {
+  grid-area: 1/ 3 / 4 / 4;
+  border-radius: 16px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.body {
+  grid-area: 1 / 1 / 4 / 4;
+}
