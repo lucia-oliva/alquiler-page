@@ -73,6 +73,13 @@ export const Rent = () => {
             </ul>
           </div>
         </div>
+        <div className="Services-container">
+          <h3>Deportes Disponibles</h3>
+          <ul>
+            <li>Padel</li>
+            <li>Volley</li>
+          </ul>
+        </div>
       </div>
     </div>
   );

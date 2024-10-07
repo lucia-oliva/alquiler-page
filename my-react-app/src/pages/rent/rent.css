@@ -1,13 +1,16 @@
+:root {
+  --shadow-color: var(--shadow-color);
+}
+
 .Rent-page {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-
+  grid-template-rows: 1fr 2fr 2fr;
   grid-template-areas:
     "header header header header"
     "form-body form-body form-body info"
     "form-body form-body form-body info";
-  background-color: #f8f8f8;
+  background-color: lightblue;
   font-family: "Poppins", sans-serif;
 }
 
@@ -18,7 +21,7 @@
   justify-content: center;
   align-items: start;
   gap: 0.5em;
-  padding: 2em;
+  padding: 0 4em;
   color: #fff;
   background-image: linear-gradient(rgba(0, 0, 0, 0.377), rgba(0, 0, 0, 0.5)),
     url("../../public/street-view.png");
@@ -77,13 +80,13 @@
 }
 
 .Info {
+  background-color: inherit;
   grid-area: info;
   display: flex;
   flex-direction: column;
   justify-content: start;
-  background-color: #f8f8f8;
   padding-top: 4em;
-  gap: 2em;
+  gap: 0.5em;
 }
 
 .Services-container {

@@ -70,7 +70,7 @@
 
 #pdf-file::before {
   content: "Seleccionar archivo PDF";
-  display: inline-block;
+  display: block;
   background: linear-gradient(top, #f9f9f9, #e3e3e3);
   padding: 4em;
   border: 2px dotted #999;
