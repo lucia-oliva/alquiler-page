@@ -1,0 +1,104 @@
+.rent-form-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1em;
+}
+
+.rent-form {
+  display: flex;
+  padding: 0;
+  background-color: #fff;
+  box-shadow: 0.5px 0.5px 0.8px hsl(0deg 0% 61% / 0.36),
+    1.6px 1.7px 2.6px -0.8px hsl(0deg 0% 61% / 0.36),
+    3.9px 4.1px 6.4px -1.7px hsl(0deg 0% 61% / 0.36),
+    9.5px 10.1px 15.6px -2.5px hsl(0deg 0% 61% / 0.36);
+}
+.not-selected {
+  text-align: center;
+  border: none;
+  padding: 0.5em 3em 0.5em 1em;
+}
+
+.select-container {
+  gap: 0.5em;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 1px #b6b6b6;
+  border-radius: 10px 10px 0 0;
+}
+
+#cancha-select,
+#date-input {
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  font: inherit;
+  padding: 0.5em 3em 0.5em 1em;
+}
+
+#date-input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}
+
+.pdf-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 0.5em;
+  padding: 0.5em 4em;
+  box-shadow: 0 1px #b6b6b6;
+}
+.pdf-container h3 {
+  font-weight: bold;
+}
+
+.pdf-container p {
+  font-size: 0.8em;
+  color: #464646;
+  text-wrap: wrap;
+}
+
+#pdf-file::-webkit-file-upload-button {
+  visibility: hidden;
+}
+#pdf-file {
+  align-self: center;
+}
+
+#pdf-file::before {
+  content: "Seleccionar archivo PDF";
+  display: inline-block;
+  background: linear-gradient(top, #f9f9f9, #e3e3e3);
+  padding: 4em;
+  border: 2px dotted #999;
+  border-radius: 3px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+#pdf-file:hover::before {
+  border-color: black;
+}
+
+#pdf-file:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.button-submit {
+  background-color: #e3e3e3;
+  color: black;
+  align-self: flex-end;
+  padding: 0.8em 2.7em;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.button-submit:hover {
+  background-color: #b1e457;
+}

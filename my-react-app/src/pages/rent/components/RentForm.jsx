@@ -3,6 +3,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { Hours } from "./Hours";
+import "./RentForm.css";
 
 export const RentForm = (props) => {
   RentForm.propTypes = {
@@ -51,46 +52,64 @@ export const RentForm = (props) => {
   };
 
   return (
-    <div className="rent-page">
-      <form onSubmit={(event) => handleSubmit(event)} method="post">
-        <select
-          value={cancha}
-          onChange={(e) => setCancha(Number(e.target.value))}
-          style={{}}
-        >
-          <option value="0" hidden>
-            Selecciona una cancha
-          </option>
-          <option value="1">Cancha de Padel</option>
-          <option value="2">Cancha de Volley</option>
-        </select>
+    <div className="rent-form-container">
+      <form
+        onSubmit={(event) => handleSubmit(event)}
+        method="post"
+        className="rent-form"
+      >
+        <div className="select-container">
+          <select
+            value={cancha}
+            onChange={(e) =>
+              setCancha(Number(e.target.value)) ||
+              setRangoHorario({ start: "", end: "" })
+            }
+            id="cancha-select"
+          >
+            <option value="0" hidden>
+              Selecciona una cancha
+            </option>
+            <option value="1">Cancha de Padel</option>
+            <option value="2">Cancha de Volley</option>
+          </select>
 
-        <input
-          type="date"
-          value={fecha}
-          onChange={(e) => setFecha(e.target.value)}
-          style={{ marginBottom: "20px", paddingBottom: "10px" }}
-        />
+          <input
+            id="date-input"
+            type="date"
+            value={fecha}
+            onChange={(e) => setFecha(e.target.value)}
+          />
+        </div>
 
         {cancha && fecha ? (
           <Hours
             cancha={cancha}
             fecha={fecha}
-            horaElegida={rangoHorario}
-            setHoraElegida={setRangoHorario}
+            rangoHorario={rangoHorario}
+            setRangoHorario={setRangoHorario}
           />
         ) : (
-          <p>Por favor, seleccione la cancha y la fecha</p>
+          <p className="not-selected">Selecciona una cancha y una fecha </p>
         )}
 
-        <label>Subir PDF (opcional):</label>
-        <input
-          type="file"
-          accept="application/pdf" // Asegura que solo se puedan seleccionar archivos PDF
-          onChange={(e) => setPdfFile(e.target.files[0])} // Guardar el archivo PDF seleccionado
-        />
-
-        <button type="submit">Reservar</button>
+        {rangoHorario.end ? (
+          <div className="pdf-container">
+            <h3>Subir Comprobante de pago:</h3>
+            <p> El comprobante es opcional en caso de pagar en efectivo </p>
+            <input
+              type="file"
+              id="pdf-file"
+              accept="application/pdf" // Asegura que solo se puedan seleccionar archivos PDF
+              onChange={(e) => setPdfFile(e.target.files[0])} // Guardar el archivo PDF seleccionado
+            />
+            <button className="button-submit" type="submit">
+              Reservar
+            </button>
+          </div>
+        ) : (
+          <b></b>
+        )}
       </form>
     </div>
   );

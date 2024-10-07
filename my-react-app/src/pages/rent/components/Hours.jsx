@@ -6,13 +6,15 @@ export const Hours = (props) => {
   Hours.propTypes = {
     cancha: PropTypes.number,
     fecha: PropTypes.string,
-    horaElegida: PropTypes.object,
-    setHoraElegida: PropTypes.func,
+    rangoHorario: PropTypes.object,
+    setRangoHorario: PropTypes.func,
   };
 
   const [horariosBD, setHorariosBD] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [horaElegida, setHoraElegida] = useState({});
+  let rangoHorario = props.rangoHorario;
+  let setRangoHorario = props.setRangoHorario;
   let cancha = props.cancha;
   let fecha = props.fecha;
   const horariosFijos = [];
@@ -75,27 +77,50 @@ export const Hours = (props) => {
       {horariosFijos.map((hora, index) => (
         <div className="buttons-container" key={index}>
           <button
-            className={`hour-buttons`}
+            className={
+              `hour-buttons ` +
+              (rangoHorario.start === hora ||
+              rangoHorario.end === hora ||
+              (hora > rangoHorario.start && hora < rangoHorario.end)
+                ? "active"
+                : "")
+            }
             key={index}
             type="button"
             disabled={verificarDisponibilidad(hora)}
             onClick={() => handleModal(hora)}
           >
-            {" "}
-            {hora}:00
+            <p>{hora}</p>
           </button>
         </div>
       ))}
       <div className={`modal ${isOpen ? "open" : ""}`}>
+        <button
+          className="close-button"
+          type="button"
+          onClick={() => setIsOpen(!isOpen) || setRangoHorario({})}
+        >
+          X
+        </button>
         <div className="modal-content">
-          <p>
-            <b>Horario disponible:</b>
+          <p className="modal-text">Horarios disponible:</p>
+          <div className="modal-buttons-container">
             {verificarSiguientesHoras(horaElegida).map((hour) => (
-              <button key={hour} onClick={() => setHoraElegida(hour)}>
-                {hour}
+              <button
+                type="button"
+                key={hour}
+                onClick={() =>
+                  setRangoHorario({ start: horaElegida, end: hour }) ||
+                  setIsOpen(!isOpen)
+                }
+              >
+                <p className="hour-text">
+                  {horaElegida ? `${horaElegida}:00 a ${hour}:00` : ""}
+                </p>
+                <p className="price-text">${(hour - horaElegida) * 2000} </p>
               </button>
             ))}
-          </p>
+          </div>
         </div>
       </div>
     </div>
