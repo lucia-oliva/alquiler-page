@@ -1,8 +1,15 @@
 import "./register.css";
 import { useEffect, useState } from "react";
 import { Alert } from "@mui/material";
+import { useAuth } from "../utils/useAuth";
 
-function Register(params) {
+function Register() {
+  const { user } = useAuth();
+
+  if (user) {
+    window.location.href = "/reservation";
+  }
+
   //aplicacion de use state
   const [formData, setFormData] = useState({
     nombre: "",
@@ -204,7 +211,8 @@ function Register(params) {
       </form>
       <div className="ingresar-link">
         <p>
-          ¿Ya tienes una cuenta? <br /><a href="/login">Ingresa aqui.</a>
+          ¿Ya tienes una cuenta? <br />
+          <a href="/login">Ingresa aqui.</a>
         </p>
       </div>
     </div>

@@ -5,33 +5,12 @@ function HomePage() {
   return (
     <div className="Home-page">
       <header className="Hero-section">
-        <div className="Hero-nav">
-          <img id="logo" src="logo-base1.jpg" alt="Logotipo Pagina CPCE" />
-          <nav>
-            <ul id="menu">
-              <li>
-                <a href="#">Inicio</a>
-              </li>
-              <li>
-                <a href="#">Otro Link</a>
-              </li>
-              <li>
-                <a href="#">Otro Link</a>
-              </li>
-              <li>
-                <a className="button-res" href="#">
-                  Reservar
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
         <div className="Hero-container">
           <div className="Hero-text">
             <h1>
               Reserva tu cancha <br /> al instante
             </h1>
-            <a className="button-res" href="#">
+            <a className="button-res" href="/reservation">
               Reservar
             </a>
           </div>

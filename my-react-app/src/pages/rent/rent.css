@@ -1,16 +1,19 @@
-:root {
-  --shadow-color: var(--shadow-color);
-}
-
 .Rent-page {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 1fr 2fr 2fr;
+  background: linear-gradient(
+    90deg,
+    rgb(1, 223, 112) 0%,
+    rgb(1, 223, 112) 75%,
+    rgb(255, 255, 255) 75%,
+    rgb(255, 255, 255) 100%
+  );
+  background-clip: padding-box;
   grid-template-areas:
     "header header header header"
     "form-body form-body form-body info"
     "form-body form-body form-body info";
-  background-color: lightblue;
   font-family: "Poppins", sans-serif;
 }
 
@@ -23,11 +26,12 @@
   gap: 0.5em;
   padding: 0 4em;
   color: #fff;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.377), rgba(0, 0, 0, 0.5)),
+  background-image: linear-gradient(rgba(0, 0, 0, 0.349), rgba(0, 0, 0, 0.5)),
     url("../../public/street-view.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  clip-path: polygon(0 0, 98% 0, 75% 100%, 0 100%);
 }
 
 .Header h1 {
@@ -54,10 +58,7 @@
   gap: 1em;
   padding: 2em 0;
   background-color: #fff;
-  box-shadow: 0.5px 0.5px 0.8px hsl(0deg 0% 61% / 0.36),
-    1.6px 1.7px 2.6px -0.8px hsl(0deg 0% 61% / 0.36),
-    3.9px 4.1px 6.4px -1.7px hsl(0deg 0% 61% / 0.36),
-    9.5px 10.1px 15.6px -2.5px hsl(0deg 0% 61% / 0.36);
+  box-shadow: var(--shadow-elevation-medium);
 }
 
 .Canchas h3 {
@@ -93,12 +94,10 @@
   display: flex;
   flex-direction: column;
   border-radius: 16px;
+  width: 100%;
   padding: 1em 0;
   background-color: #fff;
-  box-shadow: 0.5px 0.5px 0.8px hsl(0deg 0% 61% / 0.36),
-    1.6px 1.7px 2.6px -0.8px hsl(0deg 0% 61% / 0.36),
-    3.9px 4.1px 6.4px -1.7px hsl(0deg 0% 61% / 0.36),
-    9.5px 10.1px 15.6px -2.5px hsl(0deg 0% 61% / 0.36);
+  box-shadow: var(--shadow-elevation-medium-2);
 }
 
 .Services-container h3 {
@@ -112,13 +111,15 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-around;
   gap: 0.5em;
 }
 
 .Services-container li {
   list-style: none;
-  padding: 0.5em;
-  background-color: #d8d8d8;
+  padding: 0.5em 1em;
+  background-color: #8578caf1;
+  color: white;
   border-radius: 20px;
   font-size: 15px;
   cursor: default;
@@ -130,10 +131,7 @@
   border-radius: 16px;
   padding: 1em 0;
   background-color: #fff;
-  box-shadow: 0.5px 0.5px 0.8px hsl(0deg 0% 61% / 0.36),
-    1.6px 1.7px 2.6px -0.8px hsl(0deg 0% 61% / 0.36),
-    3.9px 4.1px 6.4px -1.7px hsl(0deg 0% 61% / 0.36),
-    9.5px 10.1px 15.6px -2.5px hsl(0deg 0% 61% / 0.36);
+  box-shadow: var(--shadow-elevation-medium-2);
 }
 
 .Horarios-container h4 {

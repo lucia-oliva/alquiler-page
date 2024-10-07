@@ -8,11 +8,7 @@
 .rent-form {
   display: flex;
   padding: 0;
-  background-color: #fff;
-  box-shadow: 0.5px 0.5px 0.8px hsl(0deg 0% 61% / 0.36),
-    1.6px 1.7px 2.6px -0.8px hsl(0deg 0% 61% / 0.36),
-    3.9px 4.1px 6.4px -1.7px hsl(0deg 0% 61% / 0.36),
-    9.5px 10.1px 15.6px -2.5px hsl(0deg 0% 61% / 0.36);
+  box-shadow: var(--shadow-elevation-medium);
 }
 .not-selected {
   text-align: center;

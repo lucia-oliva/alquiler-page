@@ -17,9 +17,6 @@ export const RentForm = (props) => {
   let setCancha = props.setCancha;
 
   const email = JSON.parse(window.localStorage.getItem("user"))?.email;
-  if (!email) {
-    window.location.href = "/login";
-  }
 
   const handleSubmit = (event) => {
     console.log("submit", email, cancha, rangoHorario);
@@ -96,7 +93,11 @@ export const RentForm = (props) => {
         {rangoHorario.end ? (
           <div className="pdf-container">
             <h3>Subir Comprobante de pago:</h3>
-            <p> El comprobante es opcional en caso de pagar en efectivo </p>
+            <p>
+              {" "}
+              El comprobante es opcional en caso de pagar en efectivo. <br />{" "}
+              Alias : cpecelr.mp CBU: 0000000000000000000 CUIL: 00000000-0
+            </p>
             <input
               type="file"
               id="pdf-file"

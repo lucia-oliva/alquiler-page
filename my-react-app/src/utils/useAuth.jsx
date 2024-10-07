@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const login = async (data) => {
     setUser(data);
-    navigate("/secret");
+    navigate("/");
   };
 
   const logout = () => {

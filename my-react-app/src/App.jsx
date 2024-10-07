@@ -6,32 +6,35 @@ import { ProtectedRoute } from "./utils/ProtectedRoute";
 import HomePage from "./pages/home";
 import Reserva from "./pages/reservas";
 import { Rent } from "./pages/rent/rent";
+import { Layout } from "./pages/components/Layout";
 
 function App() {
   return (
     <AuthProvider>
       <Routes>
-        <Route index path="/" element={<HomePage />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route
+            path="/reservation"
+            element={
+              <ProtectedRoute>
+                {" "}
+                <Rent />{" "}
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/reserva"
+            element={
+              <ProtectedRoute>
+                {" "}
+                <Reserva />{" "}
+              </ProtectedRoute>
+            }
+          />
+        </Route>
         <Route path="/login" element={<LoginPage />} />
-        <Route
-          path="/secret"
-          element={
-            <ProtectedRoute>
-              {" "}
-              <Rent />{" "}
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/reserva"
-          element={
-            <ProtectedRoute>
-              {" "}
-              <Reserva />{" "}
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </AuthProvider>
   );
