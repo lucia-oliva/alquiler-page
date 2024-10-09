@@ -1,2 +1,2 @@
-
-/server/node_modules
+/my-react-app/node_modules
+/server/node-api-postgres/node_modules

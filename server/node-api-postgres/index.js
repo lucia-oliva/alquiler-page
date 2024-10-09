@@ -2,8 +2,10 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 const db = require('./db')
-const port = 4000
+const port = 3000
 const cors = require('cors');
+//usamos multer para manejar archivos en el back
+const multer = require('multer');
 
 app.use(bodyParser.json());
 app.use(
@@ -13,7 +15,10 @@ app.use(
 );
 app.use(cors());
 
-
+//config multer
+const storage = multer.memoryStorage(); // Esto almacenará los archivos en memoria como buffer
+const upload = multer({ storage: storage });
+//
 
 
 app.get('/', (request, response) => {
@@ -24,6 +29,7 @@ app.get('/', (request, response) => {
   app.post('/users', db.createUser);
   app.post('/loginUser', db.loginUser);
   app.post('/getHorarios', db.getHorarios);
+  app.post('/reserve', upload.single('comprobante'), db.createReservation);
 
   app.listen(port, () => {
     console.log(`App running on port ${port}.`)
