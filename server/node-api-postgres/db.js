@@ -117,4 +117,55 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { getUsers, createUser, loginUser, getHorarios };
+//funcion para crear reserva
+const createReservation = async (req, res) => {
+  const { email, cancha_id, horario_inicio, horario_fin } = req.body;
+  const comprobante = req.file; // Asumo que el archivo PDF se sube correctamente con middleware como 'multer' para manejar archivos
+
+  //formateamos horarios recibidos del front
+  const formattedHorarioInicio = horario_inicio ? `${horario_inicio}:00` : null; // Formato 'HH:MM:SS'
+  const formattedHorarioFin = horario_fin ? `${horario_fin}:00` : null; // Formato 'HH:MM:SS'
+
+  //verificamos datos recibidos
+  console.log("Datos recibidos del frontend:", {
+    email,
+    cancha_id,
+    horario_inicio,
+    horario_fin});
+
+  try {
+    // 1. Buscar el usuario que hace la reserva
+    const userResult = await pool.query(
+      'SELECT id FROM public."tbUser" WHERE email = $1',
+      [email]
+    );
+    const user = userResult.rows[0];
+
+    if (!user) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+
+    // 2. Crear un registro en la tabla "tbHorarios"
+    const horarioResult = await pool.query(
+      `INSERT INTO public."tbHorarios" (fecha, hora_inicio, hora_fin, disponible, cancha_horarios_fk) 
+       VALUES (CURRENT_DATE, $1, $2, false, $3) 
+       RETURNING id`,
+      [formattedHorarioInicio, formattedHorarioFin, cancha_id]
+    );
+    const horarioId = horarioResult.rows[0].id;
+
+    // 3. Crear un registro en la tabla "tbReservas" con la referencia del horario creado
+    await pool.query(
+      `INSERT INTO public."tbReservas" (user_fk, canchas_fk, horarios_fk, comprobante) 
+       VALUES ($1, $2, $3, $4)`,
+      [user.id, cancha_id, horarioId, comprobante ? comprobante.buffer : null]
+    );
+
+    res.status(201).json({ message: "Reserva creada exitosamente" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ error: "Error al crear la reserva" });
+  }
+};
+
+module.exports = { getUsers, createUser, loginUser, getHorarios, createReservation };
