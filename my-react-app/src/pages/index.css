@@ -6,6 +6,18 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --shadow-color: 150deg 100% 25%;
+  --shadow-color2: 0deg 0% 63%;
+  --shadow-elevation-medium: 0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.36),
+    0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
+    2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.36),
+    5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.36);
+  --shadow-elevation-medium-2: 0.3px 0.5px 0.7px
+      hsl(var(--shadow-color2) / 0.36),
+    0.8px 1.6px 2px -0.8px hsl(var(--shadow-color2) / 0.36),
+    2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color2) / 0.36),
+    5px 10px 12.6px -2.5px hsl(var(--shadow-color2) / 0.36);
 }
 
 a {
@@ -47,10 +59,6 @@ button {
 }
 button:hover {
   border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
 @media (prefers-color-scheme: light) {

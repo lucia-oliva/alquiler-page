@@ -1,0 +1,164 @@
+.Rent-page {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr 2fr 2fr;
+  background: linear-gradient(
+    90deg,
+    rgb(1, 223, 112) 0%,
+    rgb(1, 223, 112) 75%,
+    rgb(255, 255, 255) 75%,
+    rgb(255, 255, 255) 100%
+  );
+  background-clip: padding-box;
+  grid-template-areas:
+    "header header header header"
+    "form-body form-body form-body info"
+    "form-body form-body form-body info";
+  font-family: "Poppins", sans-serif;
+}
+
+.Header {
+  grid-area: header;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 0.5em;
+  padding: 0 4em;
+  color: #fff;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.349), rgba(0, 0, 0, 0.5)),
+    url("../../public/street-view.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  clip-path: polygon(0 0, 98% 0, 75% 100%, 0 100%);
+}
+
+.Header h1 {
+  font-size: 3em;
+  font-weight: bold;
+}
+
+.Form-container {
+  grid-area: form-body;
+  border-radius: 16px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 3em;
+}
+
+.Canchas {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  justify-content: center;
+  align-items: start;
+  gap: 1em;
+  padding: 2em 0;
+  background-color: #fff;
+  box-shadow: var(--shadow-elevation-medium);
+}
+
+.Canchas h3 {
+  width: 100%;
+  box-shadow: 0 1px #b6b6b6;
+  padding: 0 2em;
+}
+
+.Canchas p {
+  color: #464646;
+  font-size: 0.9em;
+  padding: 0 1em 2em;
+  box-shadow: 0 1px #b6b6b6;
+}
+
+#Canchas-img {
+  width: 95%;
+  align-self: center;
+  border-radius: 16px;
+}
+
+.Info {
+  background-color: inherit;
+  grid-area: info;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  padding-top: 4em;
+  gap: 0.5em;
+}
+
+.Services-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  width: 100%;
+  padding: 1em 0;
+  background-color: #fff;
+  box-shadow: var(--shadow-elevation-medium-2);
+}
+
+.Services-container h3 {
+  width: 100%;
+  box-shadow: 0 1px #b6b6b6;
+  padding: 0 2em;
+}
+
+.Services-container ul {
+  padding: 1em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 0.5em;
+}
+
+.Services-container li {
+  list-style: none;
+  padding: 0.5em 1em;
+  background-color: #8578caf1;
+  color: white;
+  border-radius: 20px;
+  font-size: 15px;
+  cursor: default;
+}
+
+.Horarios-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  padding: 1em 0;
+  background-color: #fff;
+  box-shadow: var(--shadow-elevation-medium-2);
+}
+
+.Horarios-container h4 {
+  width: 100%;
+  box-shadow: 0 1px #b6b6b6;
+  padding: 0 2em;
+}
+
+.Horarios {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.Horarios-container ul {
+  padding: 1em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+
+.Horarios-container li {
+  list-style: none;
+  padding: 0.5em;
+  font-size: 15px;
+  cursor: default;
+}

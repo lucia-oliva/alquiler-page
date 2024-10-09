@@ -6,7 +6,11 @@ import "./login.css";
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useAuth();
+  const { login, user } = useAuth();
+
+  if (user) {
+    window.location.href = "/reservation";
+  }
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -49,7 +53,9 @@ export const LoginPage = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button className="boton-login" type="submit">Login</button>
+          <button className="boton-login" type="submit">
+            Login
+          </button>
         </form>
       </div>
       <div className="register-container">
