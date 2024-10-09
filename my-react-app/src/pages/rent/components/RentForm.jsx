@@ -29,6 +29,7 @@ export const RentForm = (props) => {
     formData.append("cancha_id", cancha);
     formData.append("horario_inicio", rangoHorario.start);
     formData.append("horario_fin", rangoHorario.end);
+    formData.append("fecha", fecha); 
 
     if (pdfFile) {
       formData.append("comprobante", pdfFile); // Añadir el archivo PDF al formData

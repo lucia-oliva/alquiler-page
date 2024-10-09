@@ -119,7 +119,7 @@ const loginUser = async (req, res) => {
 
 //funcion para crear reserva
 const createReservation = async (req, res) => {
-  const { email, cancha_id, horario_inicio, horario_fin } = req.body;
+  const { fecha ,email, cancha_id, horario_inicio, horario_fin } = req.body;
   const comprobante = req.file; // Asumo que el archivo PDF se sube correctamente con middleware como 'multer' para manejar archivos
 
   //formateamos horarios recibidos del front
@@ -131,7 +131,9 @@ const createReservation = async (req, res) => {
     email,
     cancha_id,
     horario_inicio,
-    horario_fin});
+    horario_fin,
+    fecha
+  });
 
   try {
     // 1. Buscar el usuario que hace la reserva
@@ -148,9 +150,9 @@ const createReservation = async (req, res) => {
     // 2. Crear un registro en la tabla "tbHorarios"
     const horarioResult = await pool.query(
       `INSERT INTO public."tbHorarios" (fecha, hora_inicio, hora_fin, disponible, cancha_horarios_fk) 
-       VALUES (CURRENT_DATE, $1, $2, false, $3) 
+       VALUES ($1, $2, $3, false, $4) 
        RETURNING id`,
-      [formattedHorarioInicio, formattedHorarioFin, cancha_id]
+      [fecha,formattedHorarioInicio, formattedHorarioFin, cancha_id]
     );
     const horarioId = horarioResult.rows[0].id;
 

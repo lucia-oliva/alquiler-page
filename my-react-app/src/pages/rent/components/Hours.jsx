@@ -26,7 +26,7 @@ export const Hours = (props) => {
   useEffect(() => {
     const fetchHorarios = async () => {
       try {
-        const response = await fetch("http://localhost:4000/getHorarios", {
+        const response = await fetch("http://localhost:3000/getHorarios", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ fecha, cancha }),
