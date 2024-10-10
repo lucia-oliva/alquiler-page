@@ -98,24 +98,30 @@ const createUser = (req, res) => {
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
+    console.log("Datos recibidos para el login:", { email, password });
     const result = await pool.query(
       'SELECT * FROM public."tbUser" WHERE email = $1',
       [email]
     );
     const user = result.rows[0];
 
-    if (user && password === user.password) {
-      const token = jwt.sign({ id: user.id }, "your_jwt_secret", {
-        expiresIn: "1h",
-      });
-      res.json({ token });
-    } else {
-      res.status(401).json({ message: "Invalid credentials" });
-    }
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+  console.log("Usuario encontrado:", user);
+  if (user && password === user.password) {
+    const token = jwt.sign({ id: user.id, admin: user.admin }, "your_jwt_secret", {
+      expiresIn: "1h",
+    });
+
+    res.json({ token, admin: user.admin }); // Devolver también si es admin o no
+    console.log("Generando token y devolviendo datos:", { token, admin: user.admin });
+  } else {
+    res.status(401).json({ message: "Credenciales inválidas" });
   }
+} catch (err) {
+  res.status(500).json({ error: err.message });
+}
+
 };
+
 
 //funcion para crear reserva
 const createReservation = async (req, res) => {

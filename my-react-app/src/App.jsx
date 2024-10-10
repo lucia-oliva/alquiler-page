@@ -7,6 +7,7 @@ import HomePage from "./pages/home";
 import Reserva from "./pages/reservas";
 import { Rent } from "./pages/rent/rent";
 import { Layout } from "./pages/components/Layout";
+import  AdminPage  from "./pages/admin";
 
 function App() {
   return (
@@ -29,6 +30,14 @@ function App() {
               <ProtectedRoute>
                 {" "}
                 <Reserva />{" "}
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute adminRoute={true}>
+                <AdminPage />
               </ProtectedRoute>
             }
           />
