@@ -13,16 +13,20 @@ export const RentForm = (props) => {
   const [fecha, setFecha] = useState(new Date().toISOString().split("T")[0]);
   const [rangoHorario, setRangoHorario] = useState({ start: "", end: "" });
   const [pdfFile, setPdfFile] = useState(null); // Nuevo estado para el archivo PDF
+  const [pago_total, setPago_total] = useState(null); //Estado para la nueva forma de pago
+  const [valorReserva, setValorReserva] = useState(0);
   let cancha = props.cancha;
   let setCancha = props.setCancha;
+  
 
   const email = JSON.parse(window.localStorage.getItem("user"))?.email;
 
   const handleSubmit = (event) => {
-    console.log("submit", email, cancha, rangoHorario);
+    console.log("submit", email, cancha, rangoHorario, pago_total);
 
     event.preventDefault();
 
+    let pagoParcial = pago_total == "pago_parcial";
     // Crear FormData para enviar tanto los campos como el archivo PDF
     const formData = new FormData();
     formData.append("email", email);
@@ -30,6 +34,9 @@ export const RentForm = (props) => {
     formData.append("horario_inicio", rangoHorario.start);
     formData.append("horario_fin", rangoHorario.end);
     formData.append("fecha", fecha); 
+    formData.append("pagoParcial", pagoParcial); 
+
+    console.log(pagoParcial);
 
     if (pdfFile) {
       formData.append("comprobante", pdfFile); // Añadir el archivo PDF al formData
@@ -86,19 +93,57 @@ export const RentForm = (props) => {
             fecha={fecha}
             rangoHorario={rangoHorario}
             setRangoHorario={setRangoHorario}
+            setValorReserva={setValorReserva}
           />
         ) : (
           <p className="not-selected">Selecciona una cancha y una fecha </p>
         )}
 
         {rangoHorario.end ? (
-          <div className="pdf-container">
+        <>
+          <div className="payment-method-container">
+            <h3>Seleccionar Forma de Pago</h3>
+            <select
+              
+              value={pago_total}
+
+
+              onChange={(e) => setPago_total(e.target.value)}
+              id="payment-method-select"
+            >
+              <option value="" hidden>
+                Selecciona una Forma de Pago
+              </option>
+              <option value="pago_parcial">Seña</option>
+              <option value="pago_completo">Pago Total</option>
+            </select>
+          </div>
+
+          {pago_total && (
+            
+            <div className="pdf-container">
+            
+            
             <h3>Subir Comprobante de pago:</h3>
             <p>
               {" "}
-              El comprobante es opcional en caso de pagar en efectivo. <br />{" "}
+              El pago es realizado unicamente mediante transferencia.
+              Si se realiza una seña, se debe abonar el 50% del valor de la reserva. <br />{" "}
               Alias : cpecelr.mp CBU: 0000000000000000000 CUIL: 00000000-0
             </p>
+
+             {/*Mostrar Informacion segun el tipo de pago*/}
+             {pago_total === "pago_parcial" &&(
+              <div className="info_pagos">
+                <p className="valor_reserva_t">Valor Reserva: ${valorReserva}</p>
+                <p className="valor_reserva_p">Valor Seña: ${valorReserva / 2}</p>
+              </div>
+            )}
+            {pago_total === "pago_completo" && (
+              <div className="info_pagos">
+                <p className="valor_reserva_t">Valor Reserva: ${valorReserva}</p>
+              </div>
+            )}
             <input
               type="file"
               id="pdf-file"
@@ -108,8 +153,12 @@ export const RentForm = (props) => {
             <button className="button-submit" type="submit">
               Reservar
             </button>
+
+          
           </div>
-        ) : (
+        )}
+        </>
+        ):(
           <b></b>
         )}
       </form>
