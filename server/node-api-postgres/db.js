@@ -176,4 +176,100 @@ const createReservation = async (req, res) => {
   }
 };
 
-module.exports = { getUsers, createUser, loginUser, getHorarios, createReservation };
+// Función para obtener reservas
+const getReservas = async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT r.id, c.tipo AS cancha, h.fecha, r.pago_total, u.email as usuario_email,u.nombre,u.apellido
+      FROM public."tbReservas" r
+      JOIN public."tbCanchas" c ON r.canchas_fk = c.id
+      JOIN public."tbHorarios" h on r.horarios_fk = h.id
+      JOIN public."tbUser" u ON r.user_fk = u.id
+    `);
+
+    const reservas = result.rows;
+    console.log("Reservas obtenidas:", reservas); // Para depuración
+
+
+    //const reservas = result.rows; // Obtener las reservas
+    res.json({ reservas }); // Enviar las reservas como respuesta
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ error: "Error al obtener reservas" });
+  }
+};
+
+const getComprobante = async (req, res) => {
+  const { id } = req.params; // Obtener el ID de la reserva desde la URL
+
+  try {
+    // 1. Buscar el comprobante en la tabla "tbReservas"
+    const result = await pool.query(
+      'SELECT comprobante FROM public."tbReservas" WHERE id = $1',
+      [id]
+    );
+
+    const comprobante = result.rows[0]?.comprobante;
+
+    // 2. Verificar si se encontró el comprobante
+    if (comprobante) {
+      res.setHeader("Content-Type", "application/pdf"); // Especificar el tipo de contenido como PDF
+      res.send(comprobante); // Enviar el comprobante como respuesta
+    } else {
+      res.status(404).json({ message: "Comprobante no encontrado" });
+    }
+  } catch (err) {
+    console.error("Error al recuperar comprobante:", err);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
+
+
+//funcion para confirmar pago
+const confirmarPago = async (req, res) => {
+  const { id } = req.params;
+  const { pago_total } = req.body;
+
+  try {
+    await pool.query(
+      'UPDATE public."tbReservas" SET pago_total = $1 WHERE id = $2',
+      [pago_total, id]
+    );
+    res.status(200).json({ message: "Pago confirmado" });
+  } catch (err) {
+    console.error("Error al confirmar pago:", err);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
+
+//funcion para cancelar reserva
+const cancelarReserva = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // 1. Obtener el ID del horario relacionado a la reserva
+    const horarioResult = await pool.query(
+      'SELECT horarios_fk FROM public."tbReservas" WHERE id = $1',
+      [id]
+    );
+    const horarioId = horarioResult.rows[0]?.horarios_fk;
+
+    if (!horarioId) {
+      return res.status(404).json({ message: "Horario no encontrado para la reserva" });
+    }
+
+    // 2. Eliminar la reserva
+    await pool.query('DELETE FROM public."tbReservas" WHERE id = $1', [id]);
+
+    // 3. Eliminar el horario relacionado
+    await pool.query('DELETE FROM public."tbHorarios" WHERE id = $1', [horarioId]);
+
+    res.status(200).json({ message: "Reserva y horario eliminados" });
+  } catch (err) {
+    console.error("Error al cancelar reserva y eliminar horario:", err);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
+
+module.exports = { getUsers, createUser, loginUser, getHorarios, createReservation,
+  getReservas,getComprobante,confirmarPago,cancelarReserva };
