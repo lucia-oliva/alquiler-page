@@ -6,6 +6,7 @@
   align-items: center;
   background-color: #fff;
   width: 100%;
+  max-height: 3em;
   padding: 1em;
   top: 0;
   z-index: 100;
@@ -23,7 +24,7 @@
 }
 
 #logo {
-  width: 3em;
+  width: 2em;
 }
 
 #menu {
@@ -36,7 +37,7 @@
 .button-nav {
   background-color: #d3fe3d;
   color: #6953da;
-  padding: 10px 15px;
+  padding: 6px 11px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -45,6 +46,11 @@
 
 .button-nav.red {
   background-color: #fe3d3d;
+  color: #fff;
+}
+
+.button-nav.blue {
+  background-color: #6953da;
   color: #fff;
 }
 

@@ -61,6 +61,13 @@ export const Layout = () => {
                     Reservar
                   </a>
                 </li>
+                {user.admin == true && (
+                  <li>
+                    <a className="button-nav blue" href="/admin">
+                      Administrar
+                    </a>
+                  </li>
+                )}
                 <li>
                   <a
                     className="button-nav red"
