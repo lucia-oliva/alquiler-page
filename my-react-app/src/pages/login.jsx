@@ -28,7 +28,8 @@ export const LoginPage = () => {
       const data = await response.json();
       console.log(data);
       if (response.ok) {
-        login({ email, token: data.token });
+        //agrego el valor admin
+        login({ email, token: data.token,admin:data.admin });
       } else {
         alert("Invalid email or password");
       }

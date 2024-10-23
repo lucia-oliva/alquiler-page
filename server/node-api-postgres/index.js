@@ -30,6 +30,10 @@ app.get('/', (request, response) => {
   app.post('/loginUser', db.loginUser);
   app.post('/getHorarios', db.getHorarios);
   app.post('/reserve', upload.single('comprobante'), db.createReservation);
+  app.get('/getReservas', db.getReservas);
+  app.get('/reservas/:id/comprobante', db.getComprobante);
+  app.put('/reservas/:id/confirmarPago', db.confirmarPago);
+  app.delete('/reservas/:id/cancelar', db.cancelarReserva);
 
   app.listen(port, () => {
     console.log(`App running on port ${port}.`)
