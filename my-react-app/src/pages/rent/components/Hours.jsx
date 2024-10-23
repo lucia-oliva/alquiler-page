@@ -8,6 +8,7 @@ export const Hours = (props) => {
     fecha: PropTypes.string,
     rangoHorario: PropTypes.object,
     setRangoHorario: PropTypes.func,
+    setValorReserva: PropTypes.func,
   };
 
   const [horariosBD, setHorariosBD] = useState([]);
@@ -18,6 +19,7 @@ export const Hours = (props) => {
   let cancha = props.cancha;
   let fecha = props.fecha;
   const horariosFijos = [];
+  
 
   for (let i = 8; i <= 23; i++) {
     horariosFijos.push(i);
@@ -109,9 +111,9 @@ export const Hours = (props) => {
               <button
                 type="button"
                 key={hour}
-                onClick={() =>
+                onClick={() => 
                   setRangoHorario({ start: horaElegida, end: hour }) ||
-                  setIsOpen(!isOpen)
+                  setIsOpen(!isOpen) || props.setValorReserva((hour - horaElegida) * 2000)
                 }
               >
                 <p className="hour-text">

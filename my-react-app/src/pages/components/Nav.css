@@ -55,11 +55,10 @@
 }
 
 #arrow {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.2em;
   align-items: center;
-  font-size: 1.5em;
-  color: #6953da;
+  justify-content: center;
   cursor: pointer;
 }

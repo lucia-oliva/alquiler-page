@@ -108,17 +108,31 @@ const AdminPage = () => {
     }
   };
 
-  // Función para manejar la selección de una reserva
-  const handleReservaClick = async (idReserva) => {
-    const reserva = reservas.find((res) => res.id === idReserva);
-    setReservaSeleccionada(reserva);
-    const aside = document.querySelector("aside");
-    aside.classList.toggle("open");
+  // Handle a reservation being clicked
+  const handleReservaClick = async (reservaId) => {
+    const selectedReserva = reservas.find(
+      (reserva) => reserva.id === reservaId
+    );
+    setReservaSeleccionada(selectedReserva);
+
+    setTimeout(() => {
+      const aside = document.querySelector("aside");
+      if (!aside.classList.contains("open")) {
+        aside.classList.add("open");
+      }
+    }, 100);
   };
 
   // Cerrar la información de la reserva seleccionada
   const handleClose = () => {
-    setReservaSeleccionada(null);
+    const aside = document.querySelector("aside");
+    if (aside.classList.contains("open")) {
+      aside.classList.remove("open");
+    }
+
+    setTimeout(() => {
+      setReservaSeleccionada(null);
+    }, 400);
   };
 
   // Filtrar las reservas por cancha
@@ -149,9 +163,9 @@ const AdminPage = () => {
           <table className="reservas-table">
             <thead className="reservas-table-header">
               <tr>
-                <th>Tipo de cancha</th>
                 <th>Fecha</th>
                 <th>Horario</th>
+                <th>Tipo de cancha</th>
                 <th>Pago Confirmado</th>
               </tr>
             </thead>
@@ -170,16 +184,16 @@ const AdminPage = () => {
                     key={reserva.id}
                     onClick={() => handleReservaClick(reserva.id)}
                   >
-                    <td style={{ textTransform: "capitalize" }}>
-                      {reserva.cancha}
-                    </td>
                     <td>{formatDate(reserva.fecha)}</td>
                     <td>
                       {reserva.hora_inicio.slice(0, 5) +
                         " - " +
                         reserva.hora_fin.slice(0, 5)}
                     </td>
-                    <td className={reserva.pago_total ? "green" : "red"}>
+                    <td style={{ textTransform: "capitalize" }}>
+                      {reserva.cancha}
+                    </td>
+                    <td className={reserva.pago_total ? "green" : "Red"}>
                       <p> {reserva.pago_total ? "Confirmado" : "Pendiente"}</p>
                     </td>
                   </tr>
@@ -189,43 +203,66 @@ const AdminPage = () => {
         )}
       </main>
       {reservaSeleccionada && (
-        <aside>
-          <h3>Detalles de la Reserva</h3>
-          <p>
-            <strong>Cancha:</strong> {reservaSeleccionada.cancha}
-          </p>
-          <p>
-            <strong>Fecha:</strong> {formatDate(reservaSeleccionada.fecha)}
-          </p>
-          <p>
-            <strong>Correo del Usuario:</strong>{" "}
-            {reservaSeleccionada.usuario_email}
-          </p>
-          <p>
-            <strong>Nombre:</strong> {reservaSeleccionada.nombre}
-          </p>
-          <p>
-            <strong>Apellido:</strong> {reservaSeleccionada.apellido}
-          </p>
-          <p>
-            <strong>Pago Confirmado:</strong>{" "}
-            {reservaSeleccionada.pago_total ? "Sí" : "No"}
-          </p>
-          <div>
-            <button onClick={() => mostrarComprobante(reservaSeleccionada.id)}>
+        <aside className="aside">
+          <div className="aside-header">
+            <h3>Detalles de la Reserva</h3>
+            <button className="close-btn" onClick={handleClose}>
+              X
+            </button>
+          </div>
+          <div className="aside-user">
+            <p>
+              {reservaSeleccionada.nombre} {reservaSeleccionada.apellido}
+            </p>
+            <p> {reservaSeleccionada.usuario_email}</p>
+          </div>
+          <div className="divider"></div>
+          <h4> Detalles</h4>
+          <div className="aside-details">
+            <p>
+              <strong>Fecha</strong>: {""}
+              {formatDate(reservaSeleccionada.fecha).toString()}
+            </p>
+            <p>
+              <strong>Horario</strong>: {""}{" "}
+              {reservaSeleccionada.hora_inicio.slice(0, 5)} -{" "}
+              {reservaSeleccionada.hora_fin.slice(0, 5)}
+            </p>
+            <p>
+              <strong>Tipo de cancha</strong>:
+            </p>
+            <p>{reservaSeleccionada.cancha}</p>
+            <p>
+              <strong>Pago Confirmado</strong>:
+            </p>
+            <p className={reservaSeleccionada.pago_total ? "green" : "Red"}>
+              {reservaSeleccionada.pago_total ? "Confirmado" : "Pendiente"}
+            </p>
+          </div>
+          <div className="divider"></div>
+          <div className="aside-buttons">
+            <button
+              id="comprobante"
+              onClick={() => mostrarComprobante(reservaSeleccionada.id)}
+            >
               Mostrar Comprobante
             </button>
             {!reservaSeleccionada.pago_total && (
-              <button onClick={() => confirmarPago(reservaSeleccionada.id)}>
+              <button
+                id="confirmar"
+                onClick={() => confirmarPago(reservaSeleccionada.id)}
+              >
                 Confirmar Pago
               </button>
             )}
 
-            <button onClick={() => cancelarReserva(reservaSeleccionada.id)}>
+            <button
+              id="cancelar"
+              onClick={() => cancelarReserva(reservaSeleccionada.id)}
+            >
               Cancelar Reserva
             </button>
           </div>
-          <button onClick={handleClose}>Cerrar</button>
         </aside>
       )}
     </div>
