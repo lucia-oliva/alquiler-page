@@ -1,9 +1,10 @@
 // src/pages/Rent.jsx
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Hours } from "./Hours";
 import "./RentForm.css";
+import { Alert } from "@mui/material";
 
 export const RentForm = (props) => {
   RentForm.propTypes = {
@@ -17,7 +18,22 @@ export const RentForm = (props) => {
   const [valorReserva, setValorReserva] = useState(0);
   let cancha = props.cancha;
   let setCancha = props.setCancha;
-  
+  //estado para las alertas
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
+
+  //actualizar la alerta despues de 5 segundos
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage("");
+        setMessageType("");
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
+
 
   const email = JSON.parse(window.localStorage.getItem("user"))?.email;
 
@@ -25,6 +41,19 @@ export const RentForm = (props) => {
     console.log("submit", email, cancha, rangoHorario, pago_total);
 
     event.preventDefault();
+
+    //validar si el archivo fue subido.
+    if(!pdfFile){
+      setMessage("Por favor, adjuntar un comprobante de pago");
+      setMessageType("error");
+      return;
+    }
+
+    if(pdfFile && pdfFile.type !== "application/pdf"){
+      setMessage("El archivo debe ser un PDF");
+      setMessageType("error");
+      return;
+    }
 
     let pagoParcial = pago_total == "pago_completo";
     // Crear FormData para enviar tanto los campos como el archivo PDF
@@ -47,14 +76,21 @@ export const RentForm = (props) => {
       method: "POST",
       body: formData, // Enviar FormData en lugar de JSON
     })
-      .then((response) => response.text())
-      .then((data) => {
-        alert(data);
-      })
-      .catch((error) => {
-        console.error("Error creating reservation:", error);
+      .then((response) => {
+        if(response.ok){
+          setMessage("Reserva realizada con éxito");
+          setMessageType("success");
+        }else{
+          setMessage("Hubo un error al realizar la reserva");
+          setMessageType("error");
+        }
+      }).catch((err) => {
+        setMessage("Hubo un error en la reserva" + err.message);
+        setMessageType("error");
+        console.error(err);
       });
-  };
+    };
+      
 
   return (
     <div className="rent-form-container">
@@ -62,6 +98,7 @@ export const RentForm = (props) => {
         onSubmit={(event) => handleSubmit(event)}
         method="post"
         className="rent-form"
+        noValidate
       >
         <div className="select-container">
           <select
@@ -132,8 +169,8 @@ export const RentForm = (props) => {
               Alias : cpecelr.mp CBU: 0000000000000000000 CUIL: 00000000-0
             </p>
 
-             {/*Mostrar Informacion segun el tipo de pago*/}
-             {pago_total === "pago_parcial" &&(
+            {/*Mostrar Informacion segun el tipo de pago*/}
+            {pago_total === "pago_parcial" &&(
               <div className="info_pagos">
                 <p className="valor_reserva_t">Valor Reserva: ${valorReserva}</p>
                 <p className="valor_reserva_p">Valor Seña: ${valorReserva / 2}</p>
@@ -147,9 +184,18 @@ export const RentForm = (props) => {
             <input
               type="file"
               id="pdf-file"
-              accept="application/pdf" // Asegura que solo se puedan seleccionar archivos PDF
+              accept="application/pdf"// Asegura que solo se puedan seleccionar archivos PDF
+              required // Asegura que sea obligatorio subir los comprobantes de pago. 
+              
               onChange={(e) => setPdfFile(e.target.files[0])} // Guardar el archivo PDF seleccionado
             />
+            
+            {message && (
+              <Alert severity={messageType} onClose={() => setMessage("")}>
+                {message}
+              </Alert>
+            )}
+
             <button className="button-submit" type="submit">
               Reservar
             </button>

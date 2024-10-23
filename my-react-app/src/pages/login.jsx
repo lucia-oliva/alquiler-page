@@ -1,16 +1,32 @@
 // src/pages/Login.jsx
-import { useState } from "react";
+import { useEffect,useState } from "react";
 import { useAuth } from "../utils/useAuth";
 import "./login.css";
+import { Alert } from "@mui/material";
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, user } = useAuth();
+  //estado para las alertas
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
 
   if (user) {
     window.location.href = "/reservation";
   }
+
+  //actualizar la alerta despues de 5 segundos
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage("");
+        setMessageType("");
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -31,10 +47,13 @@ export const LoginPage = () => {
         //agrego el valor admin
         login({ email, token: data.token,admin:data.admin });
       } else {
-        alert("Invalid email or password");
+        setMessage("Email o Contraseña invalidas");
+        setMessageType("error");
       }
     } catch (error) {
-      alert("Error: " + error.message);
+      setMessage("Hubo un error: " + error.message);
+      setMessageType("error");
+      console.log(error);
     }
   };
 
@@ -54,8 +73,14 @@ export const LoginPage = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+
+            {message && (
+              <Alert severity={messageType} onClose={() => setMessage("")}>
+                {message}
+              </Alert>
+            )}
           <button className="boton-login" type="submit">
-            Login
+          Iniciar Sesion
           </button>
         </form>
       </div>

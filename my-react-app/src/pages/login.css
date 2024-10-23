@@ -4,7 +4,7 @@
   grid-template-columns: 2fr 1fr;
   background-image: url("../../public/canchaPadel.png");
   background-size: cover;
-  background-position: -30em 0;
+  background-position: -25em 0;
   background-repeat: no-repeat;
   background-color: #7047cf;
   height: 100vh;
@@ -53,11 +53,11 @@
 
 .register-link:hover {
   color: black;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .boton-login{
-  color: white;
+  color: black;
   height: 3em;
 }
 

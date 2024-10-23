@@ -1,13 +1,27 @@
 import { useEffect, useState } from "react";
 import "./admin.css";
+import { Alert } from "@mui/material";
 //import { useAuth } from "../utils/useAuth";
 
 const AdminPage = () => {
   const [reservas, setReservas] = useState([]);
   const [reservaSeleccionada, setReservaSeleccionada] = useState(null);
-  const [showComprobante, setShowComprobante] = useState(false);
   const [filtroCancha, setFiltroCancha] = useState(null);
-  const [asideOpen, setAsideOpen] = useState(false);
+  //estado para las alertas
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
+
+  //actualizar la alerta despues de 5 segundos
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage("");
+        setMessageType("");
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
 
   // Cargar las reservas al cargar la página
   useEffect(() => {
@@ -17,7 +31,8 @@ const AdminPage = () => {
         const data = await response.json();
         setReservas(data.reservas); // Asegúrate de acceder a 'data.reservas'
       } catch (error) {
-        console.error("Error al obtener las reservas:", error);
+        setMessage("Error al cargar las reservas: " + error);
+        setMessageType("error");
       }
     };
 
@@ -44,7 +59,8 @@ const AdminPage = () => {
       const url = window.URL.createObjectURL(blob);
       window.open(url);
     } catch (error) {
-      console.error("Error al obtener el comprobante:", error);
+      setMessage("Error al obtener el comprobante: " + error);
+      setMessageType("error");
     }
   };
 
@@ -65,7 +81,9 @@ const AdminPage = () => {
       );
 
       if (response.ok) {
-        alert("Pago confirmado correctamente");
+        
+        setMessage("Pago confirmado correctamente");
+        setMessageType("success");
         // Actualiza la lista de reservas para reflejar el cambio
         setReservas((prevReservas) =>
           prevReservas.map((reserva) =>
@@ -75,10 +93,12 @@ const AdminPage = () => {
           )
         );
       } else {
-        console.error("Error al confirmar el pago");
+        setMessage("Error al confirmar el pago");
+        setMessageType("error");
       }
     } catch (error) {
-      console.error("Error al confirmar el pago:", error);
+      setMessage("Error al confirmar el pago" + error.message);
+      setMessageType("error");
     }
   };
 
@@ -93,7 +113,8 @@ const AdminPage = () => {
       );
 
       if (response.ok) {
-        alert("Reserva cancelada correctamente");
+        setMessage("Reserva cancelada correctamente");
+        setMessageType("success");
         // Remover la reserva de la lista de reservas
         setReservas((prevReservas) =>
           prevReservas.filter((reserva) => reserva.id !== idReserva)
@@ -101,10 +122,12 @@ const AdminPage = () => {
 
         window.location.reload();
       } else {
-        console.error("Error al cancelar la reserva");
+        setMessage("Error al cancelar la reserva");
+        setMessageType("error");
       }
     } catch (error) {
-      console.error("Error al cancelar la reserva:", error);
+      setMessage("Error al cancelar la reserva" + error.message);
+      setMessageType("error");
     }
   };
 
@@ -142,8 +165,16 @@ const AdminPage = () => {
   };
 
   return (
+    
+
     <div className="admin-page">
       <main className="admin-content">
+      {message && (
+              <Alert severity={messageType} onClose={() => setMessage("")}>
+                {message}
+              </Alert>
+            )}
+
         <div className="reservas-header">
           <h2>Reservas</h2>
           <select
