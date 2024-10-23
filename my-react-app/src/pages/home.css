@@ -180,15 +180,21 @@
   color: rgb(102, 101, 101);
 }
 
-.reservaInformacion button {
+.reservaInformacion a {
+  display: flex;
   color: #d3fe3d;
   background-color: #6953da;
-  width: 8em;
-  margin-left: 4em;
+  padding: 10px 30px;
+  align-self: center;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: all ease-in-out 0.4s;
 }
 
-.reservaInformacion button:hover {
+.reservaInformacion a:hover {
   background-color: #4633a3;
+  color: #c4fa00;
+  transform: scale(1.1);
 }
 
 .footerHome {

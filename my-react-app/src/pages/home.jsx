@@ -72,7 +72,7 @@ function HomePage() {
               Carga el comprobante de pago para <br /> confirmar tu turno.
             </li>
           </ol>
-          <button>Reservar</button>
+          <a href="/reservation">Reservar</a>
         </div>
       </section>
 
