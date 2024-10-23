@@ -26,7 +26,7 @@ export const RentForm = (props) => {
 
     event.preventDefault();
 
-    let pagoParcial = pago_total == "pago_parcial";
+    let pagoParcial = pago_total == "pago_completo";
     // Crear FormData para enviar tanto los campos como el archivo PDF
     const formData = new FormData();
     formData.append("email", email);
