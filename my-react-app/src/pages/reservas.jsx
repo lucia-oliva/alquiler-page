@@ -24,29 +24,6 @@ function Reserva() {
     }
   }, [selectedDate, slots]);
 
-
-  /*
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-
-    fetch('http://localhost:3000/reserve', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, cancha_id: selectedCancha, horario_id: selectedHorario }),
-    })
-      .then(response => response.text())
-      .then(data => {
-        alert(data);
-      })
-      .catch(error => {
-        console.error('Error creating reservation:', error);
-      });
-  };
-  */
-
   const handleSubmit = (event) => {
     event.preventDefault();
 

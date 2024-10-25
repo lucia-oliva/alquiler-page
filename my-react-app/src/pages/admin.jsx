@@ -7,17 +7,22 @@ const AdminPage = () => {
   const [reservas, setReservas] = useState([]);
   const [reservaSeleccionada, setReservaSeleccionada] = useState(null);
   const [filtroCancha, setFiltroCancha] = useState(null);
+  //filtro para ordenar por antiguedad.
+  const [filtroFecha, setFiltroFecha] = useState(null);
+  const [filtroPago, setFiltroPago] = useState(null);
+  const [filtroBusquedaFecha, setFiltroBusquedaFecha] = useState(null);
   //estado para las alertas
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
-
-  //actualizar la alerta despues de 5 segundos
+  
+  //actualizar la alerta despues de 2 segundos
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => {
         setMessage("");
         setMessageType("");
-      }, 5000);
+      
+      }, 2000);
 
       return () => clearTimeout(timer);
     }
@@ -159,10 +164,23 @@ const AdminPage = () => {
   };
 
   // Filtrar las reservas por cancha
-  const handleFilter = (event) => {
+  const handleFilterCancha = (event) => {
     const selectedCancha = event.target.value;
     setFiltroCancha(selectedCancha);
   };
+
+  // Ordenar las reservas por antiguedad
+  const handleFilterFecha = (event) => {
+    const selectedOrden = event.target.value;
+    setFiltroFecha(selectedOrden);
+  }
+
+//Ordenar las reservas por pago
+const handleFilterPago = (event) => {
+    const selectedPago = event.target.value;
+    setFiltroPago(selectedPago);
+}
+
 
   return (
     
@@ -170,16 +188,26 @@ const AdminPage = () => {
     <div className="admin-page">
       <main className="admin-content">
       {message && (
-              <Alert severity={messageType} onClose={() => setMessage("")}>
+              <Alert className="alerta" severity={messageType} onClose={() => setMessage("")}>
                 {message}
               </Alert>
             )}
 
         <div className="reservas-header">
           <h2>Reservas</h2>
+          <div className="reservas-header-filtros">
+          <fieldset>
+          <input 
+          type="text" 
+          id="filtro-fechas"
+          placeholder="Buscar por fecha..." 
+          value={filtroBusquedaFecha}
+          onChange={(e) => setFiltroBusquedaFecha(e.target.value)} 
+          />
+          </fieldset>
           <select
             name=" filtro-canchas"
-            onChange={handleFilter}
+            onChange={handleFilterCancha}
             defaultValue={""}
             id="filtro-canchas"
           >
@@ -187,7 +215,31 @@ const AdminPage = () => {
             <option value="1">Padel</option>
             <option value="2">Volley</option>
           </select>
+          <select
+            name=" filtro-Fechas"
+            onChange={handleFilterFecha}
+            defaultValue={""}
+            id="filtro-Fechas"
+          >
+            <option value="">Filtrar por Antiguedad</option>
+            <option value="1">Mas Antiguo</option>
+            <option value="2">Mas Reciente</option>
+          </select>
+          <select
+            name=" filtro-Pago"
+            onChange={handleFilterPago}
+            defaultValue={""}
+            id="filtro-Pago"
+          >
+            <option value="">Filtrar por Pago</option>
+            <option value="1">Confirmado</option>
+            <option value="2">Pendiente</option>
+          </select>
+
+          </div>
         </div>
+        
+
         {!reservas.length ? (
           <p>No hay reservas disponibles.</p>
         ) : (
@@ -197,17 +249,46 @@ const AdminPage = () => {
                 <th>Fecha</th>
                 <th>Horario</th>
                 <th>Tipo de cancha</th>
-                <th>Pago Confirmado</th>
+                <th>Pago</th>
               </tr>
             </thead>
             <tbody>
               {reservas
                 .filter(
-                  (reserva) =>
-                    reserva.cancha_id === filtroCancha || !filtroCancha
-                )
-                .sort((a, b) => new Date(a.fecha) - new Date(b.fecha))
-                .map((reserva) => (
+                  (reserva) => {
+
+                    const reservaFecha = formatDate(reserva.fecha);
+
+                    const cumpleFiltroCancha = reserva.cancha_id === filtroCancha || !filtroCancha;
+
+                    const cumpleFiltroPago = 
+                    filtroPago === null ||
+                    filtroPago === '' || 
+                    (filtroPago === "1" && reserva.pago_total) ||
+                    (filtroPago === "2" && !reserva.pago_total)
+
+                    const cumpleFiltroBusquedaFecha = reservaFecha.includes(filtroBusquedaFecha) || !filtroBusquedaFecha;
+
+                    return cumpleFiltroCancha && cumpleFiltroPago && cumpleFiltroBusquedaFecha; 
+
+                    //(reserva.cancha_id === filtroCancha || !filtroCancha) &&
+                  //(!filtroPago ||   // mostrar todos
+                    //(filtroPago === "1" && reserva. pago_total) || //pago confirmado
+                    //(filtroPago === "2" && !reserva.pago_total)) //pago pendiente
+                })
+                .sort(  (a, b) => {
+                  const dateA = new Date(a.fecha);
+                  const dateB = new Date(b.fecha);
+                  
+                  if(filtroFecha === "2"){
+                    return dateB - dateA;  //mas reciente
+                  }else if(filtroFecha === "1"){
+                    return dateA - dateB; //mas antiguo
+                  }else{
+                    return 0;  // para que no se ordenen los objetos de manera diferente según el filtro
+                  }
+                }
+              ).map((reserva) => (
                   <tr
                     className={
                       reservaSeleccionada?.id === reserva.id ? "selected" : ""
