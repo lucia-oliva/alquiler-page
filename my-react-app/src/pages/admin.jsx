@@ -71,15 +71,15 @@ const AdminPage = () => {
 
   // Función para confirmar pago
   const confirmarPago = async (idReserva) => {
-    const pago_total = true; // Ajusta este valor según la lógica de tu aplicación
+    const pago_total = true; 
 
     try {
       const response = await fetch(
         `http://localhost:3000/reservas/${idReserva}/confirmarPago`,
         {
-          method: "PUT", // Cambiado a PUT
+          method: "PUT", 
           headers: {
-            "Content-Type": "application/json", // Asegúrate de especificar el tipo de contenido
+            "Content-Type": "application/json", 
           },
           body: JSON.stringify({ pago_total }), // Enviar el total de pago en el cuerpo
         }
