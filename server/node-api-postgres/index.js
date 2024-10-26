@@ -35,6 +35,16 @@ app.get('/', (request, response) => {
   app.put('/reservas/:id/confirmarPago', db.confirmarPago);
   app.delete('/reservas/:id/cancelar', db.cancelarReserva);
 
+  /*
   app.listen(port, () => {
     console.log(`App running on port ${port}.`)
   })
+*/
+
+  // Exporta el servidor
+const server = app.listen(port, () => {
+  console.log(`App running on port ${port}.`);
+});
+
+// Exporta la app y el servidor para pruebas
+module.exports = { app, server };
