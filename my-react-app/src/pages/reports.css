@@ -1,0 +1,8 @@
+.reporte{
+    width: 500px;
+    border: 1px solid black;
+}
+
+.main-contenedor{
+    display: flex;
+}

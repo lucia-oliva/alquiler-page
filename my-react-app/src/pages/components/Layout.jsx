@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import { useAuth } from "../../utils/useAuth";
 import { FaArrowLeftLong } from "react-icons/fa6";
 
+
 export const Layout = () => {
   const [show, setShow] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -68,6 +69,15 @@ export const Layout = () => {
                     </a>
                   </li>
                 )}
+                <li>
+                {user.admin == true && (
+                  <li>
+                    <a className="button-nav blue" href="/reports">
+                      Dashboard
+                    </a>
+                  </li>
+                )}
+                </li>
                 <li>
                   <a
                     className="button-nav red"

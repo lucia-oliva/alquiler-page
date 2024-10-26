@@ -8,6 +8,7 @@ import Reserva from "./pages/reservas";
 import { Rent } from "./pages/rent/rent";
 import { Layout } from "./pages/components/Layout";
 import  AdminPage  from "./pages/admin";
+import Reports from "./pages/reports";
 
 function App() {
   return (
@@ -33,6 +34,8 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+
           <Route
             path="/admin"
             element={
@@ -41,7 +44,17 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/reports"
+            element={
+              <ProtectedRoute adminRoute={true}>
+                <Reports/> {" "}
+              </ProtectedRoute>
+            }
+          />
+        
         </Route>
+        
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<Register />} />
       </Routes>

@@ -65,7 +65,9 @@ const createUser = (req, res) => {
 
         // Verifica si el error es por una llave duplicada
         if (error.code === "23505") {
+
           // Responde con un error de unicidad
+          
           if (!res.headersSent) {
             return res
               .status(400)
@@ -86,7 +88,7 @@ const createUser = (req, res) => {
       // Responde con éxito si no hay errores
       if (!res.headersSent) {
         res.status(201).json({
-          type: "sucess",
+          type: "success",
           message: `User added with ID: ${results.rows[0].id}`,
         });
       }
@@ -191,6 +193,7 @@ const createReservation = async (req, res) => {
 
 // Función para obtener reservas
 const getReservas = async (req, res) => {
+
   try {
     const result = await pool.query(`
       SELECT r.id,c.id AS cancha_id, c.tipo AS cancha,h.hora_inicio ,h.hora_fin , h.fecha, r.pago_total, u.email as usuario_email,u.nombre,u.apellido
@@ -200,9 +203,7 @@ const getReservas = async (req, res) => {
       JOIN public."tbUser" u ON r.user_fk = u.id
     `);
 
-    const reservas = result.rows;
-
-    //const reservas = result.rows; // Obtener las reservas
+    const reservas = result.rows; // Obtener las reservas
     res.json({ reservas }); // Enviar las reservas como respuesta
   } catch (err) {
     console.error(err.message);
