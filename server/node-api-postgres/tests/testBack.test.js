@@ -44,7 +44,7 @@ describe('POST /users', () => {
       nombre: 'Juan',
       apellido: 'Pérez',
       telefono: '1234567890',
-      email: 'juanitoperezeto21@example.com', // Asegúrate de usar un email único
+      email: 'juanitoperezeto244@example.com', // Asegúrate de usar un email único
       password: 'password123',
       asociado: true
     };
@@ -60,7 +60,7 @@ describe('POST /users', () => {
       nombre: 'Juan',
       apellido: 'Pérez',
       telefono: '1234567890',
-      email: 'juanitoperezeto21@example.com', // Mismo email para provocar duplicado
+      email: 'juanitoperezeto244@example.com', // Mismo email para provocar duplicado
       password: 'password123',
       asociado: true
     };
@@ -77,7 +77,7 @@ describe('POST /users', () => {
       nombre: 'Juan',
       apellido: 'Pérez',
       telefono: '1234567890',
-      email: 'usuario.inexistente25@example.com', // Un email único para la creación
+      email: 'usuario.inexistente260@example.com', // Un email único para la creación
       password: null, // Intentar crear un usuario sin password para provocar error
       asociado: true
     };

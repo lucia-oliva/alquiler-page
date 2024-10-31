@@ -34,6 +34,7 @@ app.get('/', (request, response) => {
   app.get('/reservas/:id/comprobante', db.getComprobante);
   app.put('/reservas/:id/confirmarPago', db.confirmarPago);
   app.delete('/reservas/:id/cancelar', db.cancelarReserva);
+  app.post('/analisis_bot', db.analisis_bot);
 
   /*
   app.listen(port, () => {

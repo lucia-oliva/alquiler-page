@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useAuth } from "../../utils/useAuth";
 import "./rent.css";
 export const Rent = () => {
+
+  
   const [cancha, setCancha] = useState(0);
   const { user } = useAuth();
 
@@ -11,7 +13,9 @@ export const Rent = () => {
   }
 
   return (
+    
     <div className="Rent-page">
+    
       <div className="Header">
         <h1>Centro Deportivo CPCELR</h1>
         <p>Castro Barros 1102, La Rioja</p>
@@ -39,6 +43,7 @@ export const Rent = () => {
             alt={cancha == 1 ? `Una Cancha de Padel` : `Una Cancha de Voley`}
           />
         </div>
+              
       </div>
 
       <div className="Info">
@@ -85,6 +90,17 @@ export const Rent = () => {
           </ul>
         </div>
       </div>
+              
+    
+      
+    
+    
     </div>
+
+  
+
   );
+
+  
 };
+

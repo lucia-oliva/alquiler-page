@@ -3,6 +3,7 @@ import './reports.css';
 import { Doughnut } from "react-chartjs-2";
 import { Bar } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import ChatbotWidget from './components/botAsistent.jsx';
 import {
   Chart as ChartJS,
   ArcElement,
@@ -31,7 +32,7 @@ const Reports = () => {
   useEffect(() => {
     const fetchReservas = async () => {
       try {
-        const response = await fetch("http://localhost:3000/getReservas");
+        const response =  await fetch("http://localhost:3000/getReservas");
         if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
 
         const data = await response.json();
@@ -63,8 +64,8 @@ const Reports = () => {
             {
               label: 'Reservas por Día de la Semana (Histórico)',
               data: conteoPorDia,
-              backgroundColor: 'rgba(75, 192, 192, 0.6)',
-              borderColor: 'rgba(75, 192, 192, 1)',
+              backgroundColor: 'rgba(75, 192, 192, 0.8)',
+              borderColor: 'rgba(75, 192, 192, 0.8)',
               borderWidth: 1,
             },
           ],
@@ -90,8 +91,8 @@ const Reports = () => {
             {
               label: 'Reservas por Horario (Histórico)',
               data: conteoPorHora,
-              backgroundColor: 'rgba(255, 206, 86, 0.6)',
-              borderColor: 'rgba(255, 206, 86, 1)',
+              backgroundColor: 'rgba(255, 206, 86, 0.8)',
+              borderColor: 'rgba(255, 206, 86, 0.8)',
               borderWidth: 1,
             },
           ],
@@ -120,12 +121,14 @@ const Reports = () => {
             {
               label: 'Reservas por Día de la Semana (Mes Actual)',
               data: conteoPorDiaMesActual,
-              backgroundColor: 'rgba(153, 102, 255, 0.6)',
-              borderColor: 'rgba(153, 102, 255, 1)',
+              backgroundColor: 'rgba(153, 102, 255, 0.8)',
+              borderColor: 'rgba(153, 102, 255, 0.8)',
               borderWidth: 1,
             },
           ],
-        });
+        },
+
+      );
 
         // Conteo de reservas por horario para el mes actual
         const conteoPorHoraMesActual = Array(16).fill(0);
@@ -146,12 +149,13 @@ const Reports = () => {
             {
               label: 'Reservas por Horario (Mes Actual)',
               data: conteoPorHoraMesActual,
-              backgroundColor: 'rgba(255, 99, 132, 0.6)',
-              borderColor: 'rgba(255, 99, 132, 1)',
+              backgroundColor: 'rgba(255, 99, 132, 0.7)',
+              borderColor: 'rgba(255, 99, 132, 0.7)',
               borderWidth: 1,
             },
           ],
-        });
+        },
+      );
 
       } catch (error) {
         console.error("Error al obtener los datos de reservas:", error);
@@ -171,8 +175,8 @@ const Reports = () => {
       {
         label: "Reservas",
         data: [confirmados, pendientes],
-        backgroundColor: ["#36A2EB", "#FF6384"],
-        hoverBackgroundColor: ["#36F8EB", "#FF6384"],
+        backgroundColor: ["#8c17ff", "#6fff39"],
+        hoverBackgroundColor: ["#7b0fe5", "#4bd417"],
       },
     ],
   };
@@ -184,6 +188,8 @@ const Reports = () => {
         <Doughnut data={data} />
       </div>
       <div className="reporte">
+      <h3>Reservas por Dias de la Semana</h3>
+
         {dataPorDia ? (
           <Bar
             data={dataPorDia}
@@ -198,23 +204,7 @@ const Reports = () => {
         ) : (
           <p>Cargando gráfico...</p>
         )}
-         {dataPorHora ? (
-          <Bar
-            data={dataPorHora}
-            options={{
-              responsive: true,
-              plugins: {
-                legend: { position: 'top' },
-                title: { display: true, text: 'Horarios Más Rentados (Histórico)' },
-              },
-            }}
-          />
-        ) : (
-          <p>Cargando gráfico de horarios...</p>
-        )}
-      </div>
-      <div className="reporte">
-        {dataPorDiaMesActual ? (
+         {dataPorDiaMesActual ? (
           <Bar
             data={dataPorDiaMesActual}
             options={{
@@ -228,6 +218,10 @@ const Reports = () => {
         ) : (
           <p>Cargando gráfico de días del mes actual...</p>
         )}
+      
+      </div>
+      <div className="reporte">
+       <h3>Horarios mas Rentados</h3>
         {dataPorHoraMesActual ? (
           <Bar
             data={dataPorHoraMesActual}
@@ -242,10 +236,28 @@ const Reports = () => {
         ) : (
           <p>Cargando gráfico de horarios del mes actual...</p>
         )}
+          {dataPorHora ? (
+          <Bar
+            data={dataPorHora}
+            options={{
+              responsive: true,
+              plugins: {
+                legend: { position: 'top' },
+                title: { display: true, text: 'Horarios Más Rentados (Histórico)' },
+              },
+            }}
+          />
+        ) : (
+          <p>Cargando gráfico de horarios...</p>
+        )}
+
+        
       </div>
-    
-    </div>
-  );
+      
+      <ChatbotWidget/>
+      </div>
+      
+);
 };
 
 export default Reports;

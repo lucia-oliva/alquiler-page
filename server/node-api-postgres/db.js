@@ -3,6 +3,7 @@ const Pool = require("pg").Pool;
 const { config } = require("dotenv");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 config();
 const database = process.env.DATABASE;
@@ -10,6 +11,7 @@ const user = process.env.USER;
 const host = process.env.HOST;
 const password = process.env.PASSWORD;
 const port = process.env.PORT;
+const gemini = process.env.API_GEMINI;
 
 const pool = new Pool({
   user: user,
@@ -18,6 +20,84 @@ const pool = new Pool({
   password: password,
   port: port,
 });
+
+//Api_GEMINI, generaicon de Instancia de Bot.
+const genAI = new GoogleGenerativeAI(gemini);
+
+
+const analisis_bot = async (req, res) => {
+  try {
+    const userMessage = req.body.userMessage; // Obtener el mensaje del usuario
+
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+
+    const chat = model.startChat({
+      history: [
+        {
+          role: "user",
+          parts: [{ text: userMessage }], // Utiliza el mensaje del usuario
+        },
+        {
+          role: "model",
+          parts: [{ text: "Estoy listo para ayudarte con tus reservas." }],
+        },
+      ],
+      generationConfig: {
+        maxOutputTokens: 800,
+      },
+    });
+
+    const result = await chat.sendMessage(userMessage);
+    const response = await result.response;
+    const respuesta = await response.text();
+
+    console.log("Respuesta de la IA:", respuesta);
+
+    return res.status(200).json({ response: respuesta }); // Ajustar el formato de la respuesta
+  } catch (error) {
+    console.error("Error al procesar la solicitud:", error);
+    return res.status(500).json({ message: "Error al procesar la solicitud." });
+  }
+};
+
+
+
+const analisis_bot_dea = async (res) => {
+try {
+  
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+
+  const chat = model.startChat({
+      history: [
+          {
+              role: "user",
+              parts: [{ text:"Te voy a pasar unos datos de mi pagina de reservas de canchas de voley y padel. (Los datos incluirán días, número de reservas, tipo de cancha, ingresos, etc.) Tienes que entender las estadisticas y ofrecer recomendaciones de estrategia de negocio para maximizar mis reservas. Ej: El lunes 24 casi no ha sido reservado, deberias poner una promocion el proximo. O el martes es feriado, quizas tengas mas reservas. Etc. " }],
+          },
+          {
+              role: "model",
+              parts: [{ text: "Bien. Estoy a a la espera de tu datos." }],
+          },
+      ],
+      generationConfig: {
+          maxOutputTokens: 800,
+      },
+  });
+
+  const result = await chat.sendMessage(question);
+  const response = await result.response;
+  const respuesta = await response.text();
+
+  console.log("Respuesta de la IA:", respuesta);
+
+  return new Response(respuesta, { status: 200 });
+} catch (error) {
+  return new Response("Error al procesar la solicitud.", { status: 500 });
+}
+};
+
+
+
+
 
 //funcion para obtener usuarios.
 const getUsers = (request, response) => {
@@ -207,7 +287,7 @@ const getReservas = async (req, res) => {
     res.json({ reservas }); // Enviar las reservas como respuesta
   } catch (err) {
     console.error(err.message);
-    res.status(500).json({ error: "Error al obtener reservas" });
+    res.status(500).json({ error: "Error al obtener reservas" + err.message });
   }
 };
 
@@ -296,4 +376,5 @@ module.exports = {
   getComprobante,
   confirmarPago,
   cancelarReserva,
+  analisis_bot
 };
