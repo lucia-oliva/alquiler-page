@@ -13,7 +13,11 @@ app.use(
     extended: true,
   })
 );
-app.use(cors());
+
+//configuracion de cors
+app.use(cors({
+  origin: "http://localhost:5173", // URL del frontend
+}));
 
 //config multer
 const storage = multer.memoryStorage(); // Esto almacenará los archivos en memoria como buffer
@@ -36,11 +40,6 @@ app.get('/', (request, response) => {
   app.delete('/reservas/:id/cancelar', db.cancelarReserva);
   app.post('/analisis_bot', db.analisis_bot);
 
-  /*
-  app.listen(port, () => {
-    console.log(`App running on port ${port}.`)
-  })
-*/
 
   // Exporta el servidor
 const server = app.listen(port, () => {
