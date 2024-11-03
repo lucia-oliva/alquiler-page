@@ -1,7 +1,5 @@
 /* Estilos generales */
 
-
-
 body {
   font-family: 'Roboto', sans-serif;
   background-color: rgba(0, 0, 0, 0.05);
@@ -10,11 +8,12 @@ body {
   height: 100vh;
 }
 
-.main-contenedor {
+.contenedor-graficos {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
   padding: 20px;
+  height: 90vh;
 }
 
 /* Sección del reporte */

@@ -113,7 +113,7 @@ function Register() {
 
   return (
     <div className="register">
-      <form onSubmit={envio}>
+      <form className="registro-form" onSubmit={envio}>
         <div className="titulo">
           <h2>Cree una nueva cuenta</h2>
         </div>

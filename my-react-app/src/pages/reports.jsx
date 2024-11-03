@@ -24,6 +24,7 @@ const Reports = () => {
   const [pendientes, setPendientes] = useState(0);
   const [dataPorDia, setDataPorDia] = useState(null);
   const [dataPorHora, setDataPorHora] = useState(null);
+  const [resumen, setResumen] = useState(null);
   const [dataPorDiaMesActual, setDataPorDiaMesActual] = useState(null);
   const [dataPorHoraMesActual, setDataPorHoraMesActual] = useState(null);
   const [mesActual, setMesActual] = useState(new Date().getMonth());
@@ -48,14 +49,20 @@ const Reports = () => {
         // Mapea las fechas de reserva a días de la semana para todas las reservas
         const diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
         const conteoPorDia = Array(7).fill(0);
+        let conteoPorHora = Array(16).fill(0);
+        const fechasReservas = [];
 
         data.reservas.forEach(reserva => {
           if (reserva.fecha) {
             const fecha = new Date(reserva.fecha);
             const diaSemana = fecha.getUTCDay();
             conteoPorDia[diaSemana]++;
+            fechasReservas.push(reserva.fecha);
           }
+          
         });
+
+      
 
         // Configura los datos del gráfico para días históricos
         setDataPorDia({
@@ -71,18 +78,21 @@ const Reports = () => {
           ],
         });
 
-        // Conteo de reservas por horario para todas las reservas
-        const conteoPorHora = Array(16).fill(0); // Desde 8:00 hasta 23:00
+
 
         data.reservas.forEach(reserva => {
           if (reserva.hora_inicio) {
+            
+
             const hora = parseInt(reserva.hora_inicio.split(':')[0], 10); // Obtener la hora
+            
             if (hora >= 8 && hora <= 23) {
               conteoPorHora[hora - 8]++; // Resta 8 para que el índice empiece en 0
             }
           }
         });
 
+        
         // Configura los datos del gráfico para horas históricas
         const horasLabels = Array.from({ length: 16 }, (_, i) => `${i + 8}:00`);
         setDataPorHora({
@@ -126,9 +136,7 @@ const Reports = () => {
               borderWidth: 1,
             },
           ],
-        },
-
-      );
+        });
 
         // Conteo de reservas por horario para el mes actual
         const conteoPorHoraMesActual = Array(16).fill(0);
@@ -142,6 +150,35 @@ const Reports = () => {
           }
         });
 
+         //Crear resumen con los datos 
+         const resumen = {
+
+          totalReservad: data.reservas.length,
+          fechas: fechasReservas.join(','),
+          reservasPorDia: diasSemana.map((dia, index) => ({
+            dia,
+            cantidad: conteoPorDia[index]
+          })),
+          reservasPorHora: conteoPorHora.map((cantidad, hora) => ({
+            hora: `${hora+8}:00 - ${hora + 9}:00`,
+            cantidad,
+            
+          })), 
+          reservasPorDiaMesActual: diasSemana.map((dia, index) => ({
+            dia,
+            cantidad: conteoPorDiaMesActual[index],
+          })),
+          reservasPorHoraMesActual: conteoPorHoraMesActual.map((cantidad, hora) => ({
+            hora: `${hora + 8}:00 - ${hora + 9}:00`,
+            cantidad,
+          })),
+        };
+
+        console.log('Resumen de reservas:', resumen);
+        setResumen(resumen);
+
+
+
         // Configura los datos del gráfico para horarios del mes actual
         setDataPorHoraMesActual({
           labels: horasLabels,
@@ -154,13 +191,23 @@ const Reports = () => {
               borderWidth: 1,
             },
           ],
-        },
-      );
+        });
+
+
+
+
+
 
       } catch (error) {
         console.error("Error al obtener los datos de reservas:", error);
       }
+          
+    
+      
+    
     };
+
+    
 
     fetchReservas();
   }, [mesActual, anioActual]);
@@ -182,7 +229,9 @@ const Reports = () => {
   };
 
   return (
+
     <div className="main-contenedor">
+      <div className="contenedor-graficos">
       <div className="reporte">
         <h3>Proporción de Pagos Confirmados y Pendientes</h3>
         <Doughnut data={data} />
@@ -253,8 +302,10 @@ const Reports = () => {
 
         
       </div>
+      </div>
+
+      <ChatbotWidget datos={JSON.stringify(resumen)}/>
       
-      <ChatbotWidget/>
       </div>
       
 );
