@@ -56,18 +56,18 @@
   text-decoration: none;
 }
 
-.boton-login{
+.boton-login {
   color: black;
   height: 3em;
 }
 
-.boton-login:hover{
-  color:black;
+.boton-login:hover {
+  color: black;
   border: none;
   height: 3em;
   background-color: #9dcf47;
 }
 
-.login-form input{
-   height: 3em;
+.login-form input {
+  height: 3em;
 }
