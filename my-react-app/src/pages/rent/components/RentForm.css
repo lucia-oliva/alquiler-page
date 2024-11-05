@@ -7,6 +7,11 @@
 
 .rent-form {
   display: flex;
+  flex-direction: column;
+  font-size: 1em;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  margin-bottom: 1em;
   padding: 0;
   box-shadow: var(--shadow-elevation-medium);
 }
@@ -25,22 +30,22 @@
   border-radius: 10px 10px 0 0;
 }
 
-.payment-method-container{
+.payment-method-container {
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 0.5em;
-  margin: 0.5em; 
+  margin: 0.5em;
 }
 
-#payment-method-select{
+#payment-method-select {
   background-color: transparent;
   border: none;
   font: inherit;
   padding: 0.5em 3em 0.5em 1em;
 }
 
-.info_pagos{
+.info_pagos {
   background-color: #8578caf1;
   margin: 0.5em;
   padding: 0.9em;
@@ -48,15 +53,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
 .valor_reserva_t {
-  color:white !important;
+  color: white !important;
   font-weight: 500;
 }
 
-.valor_reserva_p{
-  color:#b1e457 !important;
+.valor_reserva_p {
+  color: #b1e457 !important;
   font-weight: 600;
 }
 

@@ -1,7 +1,7 @@
 /* Estilos generales */
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: rgba(0, 0, 0, 0.05);
   margin: 0;
   padding: 0;
@@ -50,7 +50,7 @@ canvas {
 }
 
 /* Texto de carga */
-p {
+.main-contenedor p {
   font-size: 1rem;
   color: #7047cf;
   text-align: center;
@@ -71,7 +71,6 @@ p {
   .reporte {
     padding: 10px;
     min-height: auto;
-  
   }
 
   .reporte h3 {
