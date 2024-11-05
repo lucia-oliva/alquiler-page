@@ -96,9 +96,6 @@ const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 };
 
 
-
-
-
 //funcion para obtener usuarios.
 const getUsers = (request, response) => {
   pool.query('SELECT * FROM public."tbUser"', (error, results) => {
