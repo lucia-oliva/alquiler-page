@@ -1,7 +1,6 @@
 const { request } = require("express");
 const Pool = require("pg").Pool;
 const { config } = require("dotenv");
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
@@ -58,41 +57,6 @@ const analisis_bot = async (req, res) => {
     console.error("Error al procesar la solicitud:", error);
     return res.status(500).json({ message: "Error al procesar la solicitud." });
   }
-};
-
-
-
-const analisis_bot_dea = async (res) => {
-try {
-  
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
-
-  const chat = model.startChat({
-      history: [
-          {
-              role: "user",
-              parts: [{ text:"Te voy a pasar unos datos de mi pagina de reservas de canchas de voley y padel. (Los datos incluirán días, número de reservas, tipo de cancha, ingresos, etc.) Tienes que entender las estadisticas y ofrecer recomendaciones de estrategia de negocio para maximizar mis reservas. Ej: El lunes 24 casi no ha sido reservado, deberias poner una promocion el proximo. O el martes es feriado, quizas tengas mas reservas. Etc. " }],
-          },
-          {
-              role: "model",
-              parts: [{ text: "Bien. Estoy a a la espera de tu datos." }],
-          },
-      ],
-      generationConfig: {
-          maxOutputTokens: 800,
-      },
-  });
-
-  const result = await chat.sendMessage(question);
-  const response = await result.response;
-  const respuesta = await response.text();
-
-  console.log("Respuesta de la IA:", respuesta);
-
-  return new Response(respuesta, { status: 200 });
-} catch (error) {
-  return new Response("Error al procesar la solicitud.", { status: 500 });
-}
 };
 
 
